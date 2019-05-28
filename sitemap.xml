@@ -3,8 +3,56 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://quq99.github.io/blog/</loc>
-    <lastmod>2019-05-16T02:15:26+08:00</lastmod>
+    <loc>https://quq99.github.io/categories/</loc>
+    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/blog/2019-05/mapping-keys-in-vim/</loc>
+    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/series/my-vim-journey/</loc>
+    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/</loc>
+    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/series/</loc>
+    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/tags/</loc>
+    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/categories/tools/</loc>
+    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/tags/blog/</loc>
+    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/tags/vim/</loc>
+    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -13,28 +61,13 @@
   </url>
   
   <url>
+    <loc>https://quq99.github.io/blog/</loc>
+    <lastmod>2019-05-16T02:15:26+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://quq99.github.io/about/</loc>
     <lastmod>2019-05-15T12:23:26+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://quq99.github.io/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quq99.github.io/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quq99.github.io/series/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quq99.github.io/tags/</loc>
-    <priority>0</priority>
   </url>
   
 </urlset>

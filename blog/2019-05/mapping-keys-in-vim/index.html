@@ -391,7 +391,7 @@
 
 <p>And, there are also some similar command. We can use <code>nmap</code>, <code>vmap</code>, <code>imap</code> to tell vim to only use the mapping in <code>normal</code>,<code>visual</code>, or <code>insert</code> mode respectively.</p>
 
-<h1 id="side-effects">Side Effects</h1>
+<h1 id="side-effects-of-map">Side Effects of map</h1>
 
 <p>There are two side effects of using <code>map</code> command.</p>
 
@@ -405,7 +405,7 @@
 <pre><code class="language-c">nmap dd o&lt;esc&gt;jdd
 </code></pre>
 
-<p>you may think this command would open a new line, and esc to normal mode and move down one line and delete this line. However, because <strong>o<esc>jdd</strong> include &ldquo;dd&rdquo;, so it will do it recursively and can never end.</p>
+<p>you may think this command would open a new line, and esc to normal mode and move down one line and delete this line. However, because <strong>o&lt;esc&gt;jdd</strong> include &ldquo;dd&rdquo;, so it will do it recursively and can never end.</p>
 
 <h1 id="nonrecursive-mapping">Nonrecursive Mapping</h1>
 
@@ -433,9 +433,9 @@
 
 <p>and <code>:source %</code> in vim to make it works. The next time when you press <code>,x</code> in normal mode, vim will delete to the end of current line from the cursor position.</p>
 
-<h1 id="get-rid-of-esc">Get rid of <esc></h1>
+<h1 id="get-rid-of-esc">Get rid of &ldquo;&lt;esc&gt;&rdquo;</h1>
 
-<p>Now come back to the problem I have, the touch bar. I feel really uncomfortable to use <esc> to switch between <code>normal</code> mode and <code>insert</code> mode. So I add the following lines to my <code>.vimrc</code> file.</p>
+<p>Now come back to the problem I have, the touch bar. I feel really uncomfortable to use &ldquo;&lt;esc&gt;&rdquo; to switch between <code>normal</code> mode and <code>insert</code> mode. So I add the following lines to my <code>.vimrc</code> file.</p>
 
 <pre><code class="language-c">let mapleader=','
 &quot; save file in both insert mode and normal mode
@@ -448,7 +448,7 @@ inoremap jj &lt;Esc&gt;
 
 <p>The line starts with <code>&quot;</code> means comments.</p>
 
-<p>I first use <code>,</code> as my <strong>leader</strong>. Then I map the <strong>save</strong> command to <code>,w</code> so next time whenever in <code>insert</code> mode or <code>normal</code> mode and when I press <code>,w</code> it would save the file and back to <code>normal</code> mode. Because I can use <code>ZZ</code> to <strong>save and quit</strong>, I do not need to map them. At last, I map <esc> to <code>jj</code>. Because there is no continues two <em>j</em> characters in english words and <em>j</em> is exactly where my index finger is placed on the keyboard. There we are^_^</p>
+<p>I first use <code>,</code> as my <strong>leader</strong>. Then I map the <strong>save</strong> command to <code>,w</code> so next time whenever in <code>insert</code> mode or <code>normal</code> mode and when I press <code>,w</code> it would save the file and back to <code>normal</code> mode. Because I can use <code>ZZ</code> to <strong>save and quit</strong>, I do not need to map them. At last, I map &ldquo;&lt;esc&gt;&rdquo; to <code>jj</code>. Because there is no continues two <em>j</em> characters in english words and <em>j</em> is exactly where my index finger is placed on the keyboard. There we are^_^</p>
 
           </div>
 
@@ -551,8 +551,8 @@ inoremap jj &lt;Esc&gt;
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#side-effects">
-												 Side Effects
+						 					<a class="nav-link" href="#side-effects-of-map">
+												 Side Effects of map
 											</a>
 										</li>
 						 
@@ -618,7 +618,7 @@ inoremap jj &lt;Esc&gt;
 
 										<li class="nav-item">
 						 					<a class="nav-link" href="#get-rid-of-esc">
-												 Get rid of 
+												 Get rid of “&lt;esc&gt;”
 											</a>
 										</li>
 						 

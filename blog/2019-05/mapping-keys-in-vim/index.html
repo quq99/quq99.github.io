@@ -437,12 +437,13 @@
 
 <p>Now come back to the problem I have, the touch bar. I feel really uncomfortable to use &ldquo;&lt;esc&gt;&rdquo; to switch between <code>normal</code> mode and <code>insert</code> mode. So I add the following lines to my <code>.vimrc</code> file.</p>
 
-<pre><code class="language-c">let mapleader=','
-&quot; save file in both insert mode and normal mode
+<pre><code>let mapleader=','
+
+&quot; save file
 inoremap &lt;leader&gt;w &lt;Esc&gt;:w&lt;cr&gt;
 noremap &lt;leader&gt;w :w&lt;cr&gt;
-&quot; map &lt;Esc&gt; to jj, 
-&quot; leave insert mode to normal mode.
+
+&quot; map &lt;Esc&gt; to jj
 inoremap jj &lt;Esc&gt;
 </code></pre>
 

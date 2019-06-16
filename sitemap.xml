@@ -9,11 +9,6 @@
   </url>
   
   <url>
-    <loc>https://quq99.github.io/blog/2019-06/mapping-keys-in-vim/</loc>
-    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://quq99.github.io/</loc>
     <lastmod>2019-06-16T20:14:59+08:00</lastmod>
     <priority>0</priority>
@@ -35,6 +30,11 @@
     <loc>https://quq99.github.io/categories/tools/</loc>
     <lastmod>2019-06-16T20:14:59+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/blog/2019-06/vim-plugin-manager/</loc>
+    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
   </url>
   
   <url>

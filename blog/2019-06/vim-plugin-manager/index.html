@@ -7,24 +7,24 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1" />
   <meta name="author" content="Qian Qu">
-  <meta name="description" content="Things started when Apple started using touch bar on MacBook. Admittedly, touch bar is good, but as a vimer, I found it really inconvenient to switch between normal mode and insert mode. One day, I could not bear it, so I decided to make some changes.">
+  <meta name="description" content="It is Plugin that makes vim colorful and easy to use.">
   
-  <meta property="og:title" content="Mapping keys in vim" />
-<meta property="og:description" content="Things started when Apple started using touch bar on MacBook. Admittedly, touch bar is good, but as a vimer, I found it really inconvenient to switch between normal mode and insert mode. One day, I could not bear it, so I decided to make some changes." />
+  <meta property="og:title" content="Vim plugin manager" />
+<meta property="og:description" content="It is Plugin that makes vim colorful and easy to use." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://quq99.github.io/blog/2019-05/mapping-keys-in-vim/" />
-<meta property="article:published_time" content="2019-05-26T20:14:59&#43;08:00"/>
-<meta property="article:modified_time" content="2019-05-26T20:14:59&#43;08:00"/><meta property="og:see_also" content="https://quq99.github.io/blog/2019-06/vim-plugin-manager/" />
+<meta property="og:url" content="https://quq99.github.io/blog/2019-06/vim-plugin-manager/" />
+<meta property="article:published_time" content="2019-06-16T20:14:59&#43;08:00"/>
+<meta property="article:modified_time" content="2019-06-16T20:14:59&#43;08:00"/><meta property="og:see_also" content="https://quq99.github.io/blog/2019-05/mapping-keys-in-vim/" />
 
 
 
   <title>
   
-       Mapping keys in vim | Qian Qu 
+       Vim plugin manager | Qian Qu 
   
   </title>
 
-  <link rel="canonical" href="https://quq99.github.io/blog/2019-05/mapping-keys-in-vim/">
+  <link rel="canonical" href="https://quq99.github.io/blog/2019-06/vim-plugin-manager/">
 
   
   
@@ -344,21 +344,21 @@
     
   </ul>
 
-  <div class="px-4 post-heading">Mapping keys in vim</div>
+  <div class="px-4 post-heading">Vim plugin manager</div>
 
   <ul class="post-meta li-x mt-1">
     
-      <li>May 26, 2019</li>
+      <li>Jun 16, 2019</li>
     
 
     
       <li class="middot"></li>
-      <li>3 minutes read</li>
+      <li>4 minutes read</li>
     
   </ul>
   
     <div class="view">
-      <img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-05/cover.jpg" />
+      <img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-06/cover.jpg" />
     </div>
   
 
@@ -368,88 +368,288 @@
           <div class="post-content markdown">
             
 
-<p>Things started when Apple started using <code>touch bar</code> on MacBook. Admittedly, touch bar is good, but as a vimer, I found it really inconvenient to switch between <code>normal</code> mode and <code>insert</code> mode. One day, I could not bear it, so I decided to make some changes.</p>
+<p>It is Plugin that makes Vim colorful and easy to use. In this post I record my way of learning to use vim plugins managers.</p>
 
-<p>Vim has a nick name &ldquo;Text editor of the Gods&rdquo;, so there are a lot of things you can do about vim. You can customize your vim to make it easier to use, also more powerful.</p>
+<h1 id="which-one">Which one?</h1>
 
-<h1 id="mapping">Mapping</h1>
+<p>When I search the <code>vim plugins manager</code> on google, I found there are many good plugins managers. Here is the rank of <a href="https://www.slant.co/topics/1224/~best-plugin-managers-for-vim">&ldquo;<em>The best plugin managers for vim</em>&ldquo;</a> on <strong>Slant</strong></p>
 
-<p>So I decided to use <code>map</code> in Vimscript. Mapping is a very useful feature of Vimscript, and the magic of mapping is that mapping keys lets you tell Vim:</p>
+<p><img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-06/vimpluginmanagerRank.png" alt="vim plugin manager rank" /></p>
 
-<blockquote>
-<p>When I press these pattern, I want vim to do this perticular stuff rather than whatever vim would normally do.</p>
-</blockquote>
+<p>I saw several wonderful vim plugin managers such as <code>vim-plug</code>, <code>Vundle</code>, <code>Pathogen</code>, <code>Dein.vim</code> and so on. They both have pros and cons, and after some investigation I finally decide to use <code>vim-plug</code>.</p>
 
-<p>You can treat is as a shortcut. And you can map keys in <code>normal</code> mode,  <code>insert</code> mode and other modes.</p>
-
-<p>So, for example, look at this Vimscript below:</p>
-
-<pre><code class="language-shell">:map - dd
-</code></pre>
-
-<p>When you put this line in your <code>.vimrc</code> file and run <code>source .vimrc</code> to make the <code>.vimrc</code> work. You are telling vim that the next time, in <code>normal</code> mode, when I press &ldquo;-&rdquo;, the vim will do exactly what you do with pressing two characters <code>dd</code>. So the vim will delete that line. And I find <code>map</code> command also works in <code>visual</code> mode.</p>
-
-<p>And, there are also some similar command. We can use <code>nmap</code>, <code>vmap</code>, <code>imap</code> to tell vim to only use the mapping in <code>normal</code>,<code>visual</code>, or <code>insert</code> mode respectively.</p>
-
-<h1 id="side-effects-of-map">Side Effects of map</h1>
-
-<p>There are two side effects of using <code>map</code> command.</p>
+<p>Here are some information about these plugin managers.</p>
 
 <ul>
-<li>The danger of recursing</li>
-<li>May have conflict to vim-plugin mapping keys</li>
+<li>Vim-plug</li>
 </ul>
 
+<blockquote>
+<p>Pros:</p>
+
+<ol>
+<li>Really light</li>
+<li>Parallel plugin installation makes it really fast</li>
+<li>On-demand loading for faster startup time</li>
+</ol>
+</blockquote>
+
+<ul>
+<li>Vundle</li>
+</ul>
+
+<blockquote>
+<p>Pros:</p>
+
+<ol>
+<li>Easy to use</li>
+<li>Can find, install, update plugins automatically</li>
+</ol>
+
+<p>Cons:</p>
+
+<ol>
+<li>Old</li>
+<li>Vimrc can get noisy</li>
+<li>Slower if compared to vim-plug</li>
+</ol>
+</blockquote>
+
+<ul>
+<li>Pathogen</li>
+</ul>
+
+<blockquote>
+<p>Pros:</p>
+
+<ol>
+<li>Minimal additions to .vimrc file</li>
+<li>More control over your plugins</li>
+</ol>
+
+<p>Cons:</p>
+
+<ol>
+<li>More manual work</li>
+</ol>
+</blockquote>
+
+<ul>
+<li>Dein.vim</li>
+</ul>
+
+<blockquote>
+<p>Pros:</p>
+
+<ol>
+<li>Fast</li>
+</ol>
+
+<p>Cons:</p>
+
+<ol>
+<li>Complex to set up/ understand</li>
+<li>Limited documentation</li>
+</ol>
+</blockquote>
+
+<h1 id="use-vim-plug-to-manage-plugins">Use <code>vim-plug</code> to manage plugins</h1>
+
+<p>The rest part are summaries for README on <a href="https://github.com/junegunn/vim-plug">vim-plug github site</a>.</p>
+
+<h2 id="install">Install</h2>
+
+<p>In Mac, it is really simple</p>
+
+<pre><code class="language-sh">$ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ 
+
+https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+</code></pre>
+
+<p>This command will download plug.vim and put it in the &ldquo;$HOME/.vim/autoload&rdquo; directory.</p>
+
+<h2 id="usage-pipeline">Usage Pipeline</h2>
+
+<p>The usage is really straightforward and simple. There are basically <strong>three</strong> steps.</p>
+
+<ol>
+<li><p>Write <code>Plug 'GitHub_postfix_of_the_plugin'</code> in the <code>.vimrc</code> file between the line <code>call plug#begin('~/.vim/plugged')</code> and the line <code>call plug#end()</code>. For more options, see &ldquo;Plug options&rdquo; section.</p></li>
+
+<li><p><code>$ source ~/.vimrc</code> or in vim run <code>:source %</code> to make the <code>.vimrc</code> works.</p></li>
+
+<li><p>In vim, run <code>:PlugInstall</code>. It will open a new window and run things like these</p></li>
+</ol>
+
+<p><img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-06/vim-plug.gif" alt="vim-plugin install" /></p>
+
 <p>For example,</p>
 
-<pre><code class="language-c">nmap dd o&lt;esc&gt;jdd
+<p>I want to install <code>vim-startify</code>.</p>
+
+<p>Once you have installed it, when you run <code>$vim</code> in your command line, it will show a page looks like this,</p>
+
+<p><img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-06/startify-menu.png" alt="vim-startify" />.</p>
+
+<p>As the github site says:</p>
+
+<blockquote>
+<p>It provides <strong>dynamically created headers or footers</strong> and uses configurable lists to show <strong>recently used or bookmarked files</strong> and <strong>persistent sessions</strong>. All of this can be accessed in a <strong>simple to use menu</strong> that even allows to <strong>open multiple entries</strong> at once.</p>
+</blockquote>
+
+<p>For example, you can just type <code>0</code> and vim will open the corresponding file appears in the list. In the picture, it will open <code>~/.vim/bundle/vim-startify/README.md</code>.</p>
+
+<p>First go to the <a href="https://github.com/mhinz/vim-startify">GitHub site of vim stratify</a>, we can see the URL is <code>&lt;https://github.com/mhinz/vim-startify&gt;</code> so copy the postfix of URL &ldquo;mhinz/vim-startify&rdquo; to .vimrc file. Now the .vimrc looks like this</p>
+
+<pre><code>&quot; Specify a directory for plugins
+&quot; - For Neovim: ~/.local/share/nvim/plugged
+&quot; - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
+
+&quot; vim startify
+Plug 'mhinz/vim-startify'
+
+&quot; Initialize plugin system
+call plug#end()
 </code></pre>
 
-<p>you may think this command would open a new line, and esc to normal mode and move down one line and delete this line. However, because <strong>o&lt;esc&gt;jdd</strong> include &ldquo;dd&rdquo;, so it will do it recursively and can never end.</p>
+<p>Then in vim, run <code>:source %</code> to make it work.</p>
 
-<h1 id="nonrecursive-mapping">Nonrecursive Mapping</h1>
+<p>At last, in vim, run <code>:PlugInstall</code> to install the plugin.</p>
 
-<p>Vim offers another commands that would ignore recursive mapping. Just add <em>nore</em> in the front of <code>map</code>. So now we would like to use <code>noremap</code> rather than <code>map</code>.</p>
+<h2 id="plug-options">Plug options</h2>
 
-<p>There are  <code>nnoremap</code>, <code>inoremap</code>, <code>vnoremap</code> and used in normal, insert and visual mode respectively. There are similar to <code>map</code> sets.</p>
+<p>There are also some options you can choose when you install the plugins. Just put the options behind the <code>Plug 'GitHub_postfix_of_the_plugin'</code></p>
 
-<h1 id="leaders">Leaders</h1>
+<p>For example, for <code>nerdtree</code> plugin, you can use on-demanding loading for faster startup time.</p>
 
-<p>Another trick is <strong>leaders</strong> in vim.</p>
-
-<p>There are some keys that we don&rsquo;t use very often in our daily vim usage. Such as <code>-</code>, <code>+</code>, <code>,</code>. Those are really safe to be used in mappings.</p>
-
-<p>So how about using them as a <strong>Prefix</strong> key.</p>
-
-<pre><code class="language-c">let mapleader=','
+<pre><code class="language-sh">&quot; On-demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 </code></pre>
 
-<p>Then we can use &lsquo;leaders&rsquo; in vimscripts.</p>
+<p>NERD tree will be loaded on the first invocation of NERDTreeToggle command.</p>
 
-<p>For example,</p>
+<p>Or the plugin in inside the subdirectory of GitHub repo. You can use <code>rtp</code> to specify the subdirectory that contains vim plugin. For example, I want a color scheme and it is a colorscheme for many programs, so to specify the vim plugin, I use</p>
 
-<pre><code class="language-c">nnoremap &lt;leader&gt;x d$
+<pre><code class="language-sh">Plug 'sonph/onehalf', {'rtp': 'vim/'}
 </code></pre>
 
-<p>and <code>:source %</code> in vim to make it works. The next time when you press <code>,x</code> in normal mode, vim will delete to the end of current line from the cursor position.</p>
+<p>It means the corresponding vim plugin is in the &ldquo;vim/&rdquo; directory.</p>
 
-<h1 id="get-rid-of-esc">Get rid of &ldquo;&lt;esc&gt;&rdquo;</h1>
+<p>There are some plugins that require extra steps after installation or update. In that case, use <code>do</code> option to describe the task to be performed.</p>
 
-<p>Now come back to the problem I have, the touch bar. I feel really uncomfortable to use &ldquo;&lt;esc&gt;&rdquo; to switch between <code>normal</code> mode and <code>insert</code> mode. So I add the following lines to my <code>.vimrc</code> file.</p>
-
-<pre><code>let mapleader=','
-
-&quot; save file
-inoremap &lt;leader&gt;w &lt;Esc&gt;:w&lt;cr&gt;
-noremap &lt;leader&gt;w :w&lt;cr&gt;
-
-&quot; map &lt;Esc&gt; to jj
-inoremap jj &lt;Esc&gt;
+<pre><code class="language-sh">Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 </code></pre>
 
-<p>The line starts with <code>&quot;</code> means comments.</p>
+<p>If the value starts with <code>:</code>, it will be recognized as a Vim command.</p>
 
-<p>I first use <code>,</code> as my <strong>leader</strong>. Then I map the <strong>save</strong> command to <code>,w</code> so next time whenever in <code>insert</code> mode or <code>normal</code> mode and when I press <code>,w</code> it would save the file and back to <code>normal</code> mode. Because I can use <code>ZZ</code> to <strong>save and quit</strong>, I do not need to map them. At last, I map &ldquo;&lt;esc&gt;&rdquo; to <code>jj</code>. Because there is no continues two <em>j</em> characters in english words and <em>j</em> is exactly where my index finger is placed on the keyboard. There we are^_^</p>
+<pre><code class="language-sh">Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>branch</code>/<code>tag</code>/<code>commit</code></td>
+<td>Branch/tag/commit of the repository to use</td>
+</tr>
+
+<tr>
+<td><code>rtp</code></td>
+<td>Subdirectory that contains Vim plugin</td>
+</tr>
+
+<tr>
+<td><code>dir</code></td>
+<td>Custom directory for the plugin</td>
+</tr>
+
+<tr>
+<td><code>as</code></td>
+<td>Use different name for the plugin</td>
+</tr>
+
+<tr>
+<td><code>do</code></td>
+<td>Post-update hook (string or funcref)</td>
+</tr>
+
+<tr>
+<td><code>on</code></td>
+<td>On-demand loading: Commands or <code>&lt;Plug&gt;</code>-mappings</td>
+</tr>
+
+<tr>
+<td><code>for</code></td>
+<td>On-demand loading: File types</td>
+</tr>
+
+<tr>
+<td><code>frozen</code></td>
+<td>Do not update unless explicitly specified</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="commands">Commands</h2>
+
+<p>There are some commands for vim-plug, I just copy it from the GitHub site.</p>
+
+<p>For example, if you want to update <code>vim-startify</code>, in vim, type <code>:PlugUpdate vim-startify</code>  Then it looks like this</p>
+
+<p><img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-06/startify-update.png" alt="startify-update" /></p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>PlugInstall [name ...] [#threads]</code></td>
+<td>Install plugins</td>
+</tr>
+
+<tr>
+<td><code>PlugUpdate [name ...] [#threads]</code></td>
+<td>Install or update plugins</td>
+</tr>
+
+<tr>
+<td><code>PlugClean[!]</code></td>
+<td>Remove unused directories (bang version will clean without prompt)</td>
+</tr>
+
+<tr>
+<td><code>PlugUpgrade</code></td>
+<td>Upgrade vim-plug itself</td>
+</tr>
+
+<tr>
+<td><code>PlugStatus</code></td>
+<td>Check the status of plugins</td>
+</tr>
+
+<tr>
+<td><code>PlugDiff</code></td>
+<td>Examine changes from the previous update and the pending changes</td>
+</tr>
+
+<tr>
+<td><code>PlugSnapshot[!] [output path]</code></td>
+<td>Generate script for restoring the current snapshot of the plugins</td>
+</tr>
+</tbody>
+</table>
 
           </div>
 
@@ -469,6 +669,9 @@ inoremap jj &lt;Esc&gt;
       <li><a href="https://quq99.github.io/tags/blog" role="button">blog </a></li>
       
     
+      <li><a href="https://quq99.github.io/tags/plugins" role="button">plugins </a></li>
+      
+    
   </div>
 </div>
               </div>
@@ -482,16 +685,16 @@ inoremap jj &lt;Esc&gt;
           <div class="row pt-3">
             <div class="col-md-6">
               
+                <a href=https://quq99.github.io/blog/2019-05/mapping-keys-in-vim/ class="post-meta">Previous
+                  <div class="pt-2 pb-5 d-flex">
+                    <i class="fas fa-angle-left text-grey font-weight-bold mr-2 active-color"></i>
+                    <span>Mapping keys in vim</span>
+                  </div>
+                </a>
+              
             </div>
             
             <div class="col-md-6 text-right" >
-              
-                <a href=https://quq99.github.io/blog/2019-06/vim-plugin-manager/ class="post-meta">Next
-                  <div class="pt-2 pb-5 flex-reverse">
-                    <i class="fas fa-angle-right text-grey font-weight-bold ml-2 active-color"></i>
-                    <span>Vim plugin manager</span>
-                  </div>
-                </a>
               
             </div>
           </div>
@@ -537,8 +740,8 @@ inoremap jj &lt;Esc&gt;
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#mapping">
-												 Mapping
+						 					<a class="nav-link" href="#which-one">
+												 Which one?
 											</a>
 										</li>
 						 
@@ -559,8 +762,8 @@ inoremap jj &lt;Esc&gt;
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#side-effects-of-map">
-												 Side Effects of map
+						 					<a class="nav-link" href="#use-vim-plug-to-manage-plugins">
+												 Use vim-plug to manage plugins
 											</a>
 										</li>
 						 
@@ -578,15 +781,19 @@ inoremap jj &lt;Esc&gt;
 								
 									<ul class="nav">
 								
+									<ul class="nav">
+								
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#nonrecursive-mapping">
-												 Nonrecursive Mapping
+						 					<a class="nav-link" href="#install">
+												 Install
 											</a>
 										</li>
 						 
 								
+								
+									</ul>
 								
 									</ul>
 								
@@ -600,15 +807,19 @@ inoremap jj &lt;Esc&gt;
 								
 									<ul class="nav">
 								
+									<ul class="nav">
+								
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#leaders">
-												 Leaders
+						 					<a class="nav-link" href="#usage-pipeline">
+												 Usage Pipeline
 											</a>
 										</li>
 						 
 								
+								
+									</ul>
 								
 									</ul>
 								
@@ -622,15 +833,45 @@ inoremap jj &lt;Esc&gt;
 								
 									<ul class="nav">
 								
+									<ul class="nav">
+								
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#get-rid-of-esc">
-												 Get rid of “&lt;esc&gt;”
+						 					<a class="nav-link" href="#plug-options">
+												 Plug options
 											</a>
 										</li>
 						 
 								
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#commands">
+												 Commands
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
 								
 									</ul>
 								

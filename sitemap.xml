@@ -4,55 +4,66 @@
   
   <url>
     <loc>https://quq99.github.io/categories/</loc>
-    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
+    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/blog/2019-06/mapping-keys-in-vim/</loc>
+    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/</loc>
+    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/series/</loc>
+    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/tags/</loc>
+    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/categories/tools/</loc>
+    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/tags/blog/</loc>
+    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/series/my_vim_journey/</loc>
+    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/tags/plugins/</loc>
+    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/tags/vim/</loc>
+    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://quq99.github.io/blog/2019-05/mapping-keys-in-vim/</loc>
     <lastmod>2019-05-26T20:14:59+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://quq99.github.io/</loc>
-    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quq99.github.io/series/</loc>
-    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quq99.github.io/tags/</loc>
-    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quq99.github.io/categories/tools/</loc>
-    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quq99.github.io/tags/blog/</loc>
-    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quq99.github.io/series/my_vim_journey/</loc>
-    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quq99.github.io/tags/vim/</loc>
-    <lastmod>2019-05-26T20:14:59+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

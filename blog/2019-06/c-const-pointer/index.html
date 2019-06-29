@@ -7,24 +7,24 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1" />
   <meta name="author" content="Qian Qu">
-  <meta name="description" content="It is Plugin that makes vim colorful and easy to use.">
+  <meta name="description" content="It is the first blog to talk about c&#43;&#43; pointer and const.">
   
-  <meta property="og:title" content="Vim plugin manager" />
-<meta property="og:description" content="It is Plugin that makes vim colorful and easy to use." />
+  <meta property="og:title" content="C&#43;&#43;: const &amp; pointer" />
+<meta property="og:description" content="It is the first blog to talk about c&#43;&#43; pointer and const." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://quq99.github.io/blog/2019-06/vim-plugin-manager/" />
-<meta property="article:published_time" content="2019-06-16T20:14:59&#43;08:00"/>
-<meta property="article:modified_time" content="2019-06-16T20:14:59&#43;08:00"/><meta property="og:see_also" content="https://quq99.github.io/blog/2019-05/mapping-keys-in-vim/" />
+<meta property="og:url" content="https://quq99.github.io/blog/2019-06/c-const-pointer/" />
+<meta property="article:published_time" content="2019-06-26T20:14:59&#43;08:00"/>
+<meta property="article:modified_time" content="2019-06-26T20:14:59&#43;08:00"/>
 
 
 
   <title>
   
-       Vim plugin manager | Qian Qu 
+       C&#43;&#43;: const &amp; pointer | Qian Qu 
   
   </title>
 
-  <link rel="canonical" href="https://quq99.github.io/blog/2019-06/vim-plugin-manager/">
+  <link rel="canonical" href="https://quq99.github.io/blog/2019-06/c-const-pointer/">
 
   
   
@@ -334,31 +334,31 @@
   <ul class="post-meta li-x">
     
       
-        <li><a href="https://quq99.github.io/categories/tools"><i class="fas fa-folder-open pr-1" aria-hidden="true"></i> Tools </a></li>
+        <li><a href="https://quq99.github.io/categories/language"><i class="fas fa-folder-open pr-1" aria-hidden="true"></i> Language </a></li>
       
     
     
       
-        <li><a href="https://quq99.github.io/series/my_vim_journey"><i class="fas fa-bookmark pr-1" aria-hidden="true"></i>my_vim_journey</a></li>
+        <li><a href="https://quq99.github.io/series/my_c&#43;&#43;_journey"><i class="fas fa-bookmark pr-1" aria-hidden="true"></i>my_c&#43;&#43;_journey</a></li>
       
     
   </ul>
 
-  <div class="px-4 post-heading">Vim plugin manager</div>
+  <div class="px-4 post-heading">C&#43;&#43;: const &amp; pointer</div>
 
   <ul class="post-meta li-x mt-1">
     
-      <li>Jun 16, 2019</li>
+      <li>Jun 26, 2019</li>
     
 
     
       <li class="middot"></li>
-      <li>4 minutes read</li>
+      <li>5 minutes read</li>
     
   </ul>
   
     <div class="view">
-      <img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-06/cover.jpg" />
+      <img src="https://quq99.github.io/images/blog/series/my_c&#43;&#43;_journey/2019-06/cover.png" />
     </div>
   
 
@@ -368,296 +368,161 @@
           <div class="post-content markdown">
             
 
-<p>It is Plugin that makes Vim colorful and easy to use. In this post I record my way of learning to use vim plugins managers.</p>
+<p>Using <strong><em>const</em></strong> key word with a pointer has subtle aspects and it is worth talking about it.</p>
 
-<h1 id="which-one">Which one?</h1>
+<h1 id="point-to-const-or-const-pointer"><em>Point-to-const</em> or <em>const pointer</em></h1>
 
-<p>When I search the <code>vim plugins manager</code> on google, I found there are many good plugins managers. Here is the rank of <a href="https://www.slant.co/topics/1224/~best-plugin-managers-for-vim">&ldquo;<em>The best plugin managers for vim</em>&ldquo;</a> on <strong>Slant</strong></p>
+<p>You can use the <strong><em>const</em></strong> keyword in two different ways with pointers.</p>
 
-<p><img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-06/vimpluginmanagerRank.png" alt="vim plugin manager rank" /></p>
+<blockquote>
+<p>The first way is to make a pointer point to a constant object, and that prevents you from using the pointer to change the pointed-to value.</p>
 
-<p>I saw several wonderful vim plugin managers such as <code>vim-plug</code>, <code>Vundle</code>, <code>Pathogen</code>, <code>Dein.vim</code> and so on. They both have pros and cons, and after some investigation I finally decide to use <code>vim-plug</code>.</p>
+<p>The second way is to make the pointer itself constant, and that prevents you from changing where the pointer points.</p>
+</blockquote>
 
-<p>Here are some information about these plugin managers.</p>
+<p>This words are subtle and confusing the first time I read them especially after I read some examples about assignment and changeability. However, once I know the purpose of using <strong><em>const</em></strong> key word, things become crystal clear.</p>
+
+<p>So, why are we using <strong><em>const</em></strong> to pointer? The answer is simple: we want to protect the data. Specifically, the data could be value or address. So when you use the <strong><em>const</em></strong> key word, you should ask yourself the question first, which one would you want to protect, the value or the address?</p>
+
+<p>If you want to protect the value, you should make a pointer point to a constant object. You tell the compiler, this pointer point to some value that you&rsquo;d better not make a change. It means even you have the pointer, you can not change the value through pointer,  because the value is now protected.</p>
+
+<p>If you want to protect the address, you should make the pointer itself constant. You tell the compiler this pointer is binding to some address and you&rsquo;d better not change it. It is more like binding the relationship between the pointer and the value it point to.</p>
+
+<h1 id="examples">Examples</h1>
+
+<h2 id="pointer-to-constant">pointer to constant</h2>
 
 <ul>
-<li>Vim-plug</li>
+<li>Example 1</li>
 </ul>
 
 <blockquote>
-<p>Pros:</p>
-
-<ol>
-<li>Really light</li>
-<li>Parallel plugin installation makes it really fast</li>
-<li>On-demand loading for faster startup time</li>
-</ol>
+<p>assigning the address of a const variable to a pointer-to-const.</p>
 </blockquote>
 
+<pre><code class="language-c++">const float value = 9.80;
+const float * ptr = &amp;value;
+</code></pre>
+
+<p>you can use neither value nor ptr to change the value 9.80. You can not do the following things</p>
+
+<pre><code class="language-c++">*ptr += 1; //invalid, you can't change value
+cin &gt;&gt; *ptr; // invalid, you can't assign the value
+value = 3.0; // invalid, value is a constant variable
+</code></pre>
+
 <ul>
-<li>Vundle</li>
+<li>Example 2</li>
 </ul>
 
 <blockquote>
-<p>Pros:</p>
-
-<ol>
-<li>Easy to use</li>
-<li>Can find, install, update plugins automatically</li>
-</ol>
-
-<p>Cons:</p>
-
-<ol>
-<li>Old</li>
-<li>Vimrc can get noisy</li>
-<li>Slower if compared to vim-plug</li>
-</ol>
+<p>assigning the address of a regular variable to a pointer-to-const.</p>
 </blockquote>
 
+<pre><code class="language-c++">int value = 50;
+const int * ptr = &amp;value;
+</code></pre>
+
+<p>you can not use ptr to change the value 50, but you can directly change the value through variable &ldquo;value&rdquo;. You can not do the following things</p>
+
+<pre><code class="language-c++">*ptr += 1; //invalid, you can't change value through pointer
+cin &gt;&gt; *ptr; // invalid, you can't assign the value through pointer
+value = 3; // valid, value is regular variable
+</code></pre>
+
+<p>This case is tricky. It is often used in the cases which you have a function and pass a pointer as the argument. In this case, you do not want the function to change the value that the pointer point to. You want to protect the value, how can you do that? Right, let the pointer be a pointer-to-const.</p>
+
+<pre><code class="language-c++">int a = 20;
+const int *ptr = &amp;a;
+int func(const int *ptr, some_other_parameters) {
+    //do something
+    //because the ptr is point to constant
+    //variable 'a' would not change.
+    return 0;
+}
+</code></pre>
+
 <ul>
-<li>Pathogen</li>
+<li>Example 3</li>
 </ul>
 
 <blockquote>
-<p>Pros:</p>
-
-<ol>
-<li>Minimal additions to .vimrc file</li>
-<li>More control over your plugins</li>
-</ol>
-
-<p>Cons:</p>
-
-<ol>
-<li>More manual work</li>
-</ol>
+<p>assigning the address of a const to a regular pointer.</p>
 </blockquote>
 
+<p>This is prohibit in c++, because you can use a regular pointer to change the value it point to, however, if the value is decleared constant, it comes to a contradiction.</p>
+
+<pre><code class="language-c++">const int value = 50;
+int * ptr = &amp;value; // INVALID
+</code></pre>
+
 <ul>
-<li>Dein.vim</li>
+<li>Example 4</li>
 </ul>
 
 <blockquote>
-<p>Pros:</p>
-
-<ol>
-<li>Fast</li>
-</ol>
-
-<p>Cons:</p>
-
-<ol>
-<li>Complex to set up/ understand</li>
-<li>Limited documentation</li>
-</ol>
+<p>assign the address of a regular pointer to a pointer-to-const</p>
 </blockquote>
 
-<p>And here is an <a href="https://junegunn.kr/2014/07/vim-plugins-and-startup-time">article</a> about vim plugins and startup time. The author conclude that</p>
+<p>This is not safe. Not recommend.</p>
+
+<pre><code class="language-c++">const int **pp2;
+int *p1;
+const int n = 13;
+pp2 = &amp;p1; // not allowed, but suppose it were
+*pp2 = &amp;n; // valid, both const, but sets p1 to point at n
+*p1 = 10; // valid, but changes const n
+</code></pre>
+
+<p>So to wrap up,</p>
 
 <blockquote>
-<p>By not loading plugins that are not immediately needed, <a href="https://github.com/Shougo/neobundle.vim">NeoBundle</a> and <a href="https://github.com/junegunn/vim-plug">vim-plug</a> both managed to reduce the startup times by around 107ms. <a href="https://github.com/junegunn/vim-plug">vim-plug</a> now takes only 135ms to start.</p>
+<p>You can assign the address of either const data or non-const data to a pointer-to-const, provided that the data type is not itself a pointer, but you can assign the address of non-const data only to a non-const pointer.</p>
 </blockquote>
 
-<p><img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-06/vim-startup-time.png" alt="plugins startup time" /></p>
-
-<h1 id="use-vim-plug-to-manage-plugins">Use <code>vim-plug</code> to manage plugins</h1>
-
-<p>The rest part are summaries for README on <a href="https://github.com/junegunn/vim-plug">vim-plug github site</a>.</p>
-
-<h2 id="install">Install</h2>
-
-<p>In Mac, it is really simple</p>
-
-<pre><code class="language-sh">$ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ 
-
-https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-</code></pre>
-
-<p>This command will download plug.vim and put it in the &ldquo;$HOME/.vim/autoload&rdquo; directory.</p>
-
-<h2 id="usage-pipeline">Usage Pipeline</h2>
-
-<p>The usage is really straightforward and simple. There are basically <strong>three</strong> steps.</p>
-
-<ol>
-<li><p>Write <code>Plug 'GitHub_postfix_of_the_plugin'</code> in the <code>.vimrc</code> file between the line <code>call plug#begin('~/.vim/plugged')</code> and the line <code>call plug#end()</code>. For more options, see &ldquo;Plug options&rdquo; section.</p></li>
-
-<li><p><code>$ source ~/.vimrc</code> or in vim run <code>:source %</code> to make the <code>.vimrc</code> works.</p></li>
-
-<li><p>In vim, run <code>:PlugInstall</code>. It will open a new window and run things like these</p></li>
-</ol>
-
-<p><img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-06/vim-plug.gif" alt="vim-plugin install" /></p>
-
-<p>For example,</p>
-
-<p>I want to install <code>vim-startify</code>.</p>
-
-<p>Once you have installed it, when you run <code>$vim</code> in your command line, it will show a page looks like this,</p>
-
-<p><img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-06/startify-menu.png" alt="vim-startify" />.</p>
-
-<p>As the github site says:</p>
+<ul>
+<li>Example 5</li>
+</ul>
 
 <blockquote>
-<p>It provides <strong>dynamically created headers or footers</strong> and uses configurable lists to show <strong>recently used or bookmarked files</strong> and <strong>persistent sessions</strong>. All of this can be accessed in a <strong>simple to use menu</strong> that even allows to <strong>open multiple entries</strong> at once.</p>
+<p>ok to change the pointer itself, can change to point to another value</p>
 </blockquote>
 
-<p>For example, you can just type <code>0</code> and vim will open the corresponding file appears in the list. In the picture, it will open <code>~/.vim/bundle/vim-startify/README.md</code>.</p>
-
-<p>First go to the <a href="https://github.com/mhinz/vim-startify">GitHub site of vim stratify</a>, we can see the URL is <code>&lt;https://github.com/mhinz/vim-startify&gt;</code> so copy the postfix of URL &ldquo;mhinz/vim-startify&rdquo; to .vimrc file. Now the .vimrc looks like this</p>
-
-<pre><code>&quot; Specify a directory for plugins
-&quot; - For Neovim: ~/.local/share/nvim/plugged
-&quot; - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.vim/plugged')
-
-&quot; vim startify
-Plug 'mhinz/vim-startify'
-
-&quot; Initialize plugin system
-call plug#end()
+<pre><code class="language-c++">int value = 50;
+const int * ptr = &amp;value;
+int another_value = 80;
+ptr = &amp;another_value; // *ptr is now 80
 </code></pre>
 
-<p>Then in vim, run <code>:source %</code> to make it work.</p>
+<p>It just protect the value, you can not change the value through pointer, but it does not protect the address(pointer itself), you can change the address to point to another value.</p>
 
-<p>At last, in vim, run <code>:PlugInstall</code> to install the plugin.</p>
+<h2 id="make-the-pointer-itself-constant">make the pointer itself constant</h2>
 
-<h2 id="plug-options">Plug options</h2>
+<ul>
+<li>Example</li>
+</ul>
 
-<p>There are also some options you can choose when you install the plugins. Just put the options behind the <code>Plug 'GitHub_postfix_of_the_plugin'</code></p>
-
-<p>For example, for <code>nerdtree</code> plugin, you can use on-demanding loading for faster startup time.</p>
-
-<pre><code class="language-sh">&quot; On-demand loading
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+<pre><code class="language-c++">int value = 20;
+int *const ptr = &amp;value; // ptr is binding to the address of value
+int another = 3;
+ptr = &amp;another; // INVALID
 </code></pre>
 
-<p>NERD tree will be loaded on the first invocation of NERDTreeToggle command.</p>
+<p>Ptr restrain to the address of value.</p>
 
-<p>Or the plugin in inside the subdirectory of GitHub repo. You can use <code>rtp</code> to specify the subdirectory that contains vim plugin. For example, I want a color scheme and it is a colorscheme for many programs, so to specify the vim plugin, I use</p>
+<p>Here is a picture from book &ldquo;<strong>C++ Primer Plus</strong>&rdquo;.</p>
 
-<pre><code class="language-sh">Plug 'sonph/onehalf', {'rtp': 'vim/'}
+<p><img src="https://quq99.github.io/images/blog/series/my_c++_journey/2019-06/constandptr.png" alt="const pointer and pointer to const" /></p>
+
+<h1 id="const-pointer-that-point-to-a-const-object">Const pointer that point to a const object</h1>
+
+<p>If you like, you can declare a const pointer to a const object which combines the properties above:</p>
+
+<pre><code class="language-c++">double trouble = 2.0E30;
+const double * const ptr = &amp;trouble;
 </code></pre>
 
-<p>It means the corresponding vim plugin is in the &ldquo;vim/&rdquo; directory.</p>
-
-<p>There are some plugins that require extra steps after installation or update. In that case, use <code>do</code> option to describe the task to be performed.</p>
-
-<pre><code class="language-sh">Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-</code></pre>
-
-<p>If the value starts with <code>:</code>, it will be recognized as a Vim command.</p>
-
-<pre><code class="language-sh">Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-</code></pre>
-
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>branch</code>/<code>tag</code>/<code>commit</code></td>
-<td>Branch/tag/commit of the repository to use</td>
-</tr>
-
-<tr>
-<td><code>rtp</code></td>
-<td>Subdirectory that contains Vim plugin</td>
-</tr>
-
-<tr>
-<td><code>dir</code></td>
-<td>Custom directory for the plugin</td>
-</tr>
-
-<tr>
-<td><code>as</code></td>
-<td>Use different name for the plugin</td>
-</tr>
-
-<tr>
-<td><code>do</code></td>
-<td>Post-update hook (string or funcref)</td>
-</tr>
-
-<tr>
-<td><code>on</code></td>
-<td>On-demand loading: Commands or <code>&lt;Plug&gt;</code>-mappings</td>
-</tr>
-
-<tr>
-<td><code>for</code></td>
-<td>On-demand loading: File types</td>
-</tr>
-
-<tr>
-<td><code>frozen</code></td>
-<td>Do not update unless explicitly specified</td>
-</tr>
-</tbody>
-</table>
-
-<h2 id="commands">Commands</h2>
-
-<p>There are some commands for vim-plug, I just copy it from the GitHub site.</p>
-
-<p>For example, if you want to update <code>vim-startify</code>, in vim, type <code>:PlugUpdate vim-startify</code>  Then it looks like this</p>
-
-<p><img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-06/startify-update.png" alt="startify-update" /></p>
-
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>PlugInstall [name ...] [#threads]</code></td>
-<td>Install plugins</td>
-</tr>
-
-<tr>
-<td><code>PlugUpdate [name ...] [#threads]</code></td>
-<td>Install or update plugins</td>
-</tr>
-
-<tr>
-<td><code>PlugClean[!]</code></td>
-<td>Remove unused directories (bang version will clean without prompt)</td>
-</tr>
-
-<tr>
-<td><code>PlugUpgrade</code></td>
-<td>Upgrade vim-plug itself</td>
-</tr>
-
-<tr>
-<td><code>PlugStatus</code></td>
-<td>Check the status of plugins</td>
-</tr>
-
-<tr>
-<td><code>PlugDiff</code></td>
-<td>Examine changes from the previous update and the pending changes</td>
-</tr>
-
-<tr>
-<td><code>PlugSnapshot[!] [output path]</code></td>
-<td>Generate script for restoring the current snapshot of the plugins</td>
-</tr>
-</tbody>
-</table>
+<p>Here ptr can point only to trouble, and ptr cannot be used to change the value of trouble. In short, both <code>ptr</code> and <code>*ptr</code> are const.</p>
 
           </div>
 
@@ -671,13 +536,16 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
   <li class="pr-0"><a href="https://quq99.github.io/tags/"><i class="fas fa-tags"></i></a></li>
   <div class="tags-sm">
     
-      <li><a href="https://quq99.github.io/tags/vim" role="button">vim </a></li>
+      <li><a href="https://quq99.github.io/tags/c&#43;&#43;" role="button">C&#43;&#43; </a></li>
       
     
       <li><a href="https://quq99.github.io/tags/blog" role="button">blog </a></li>
       
     
-      <li><a href="https://quq99.github.io/tags/plugins" role="button">plugins </a></li>
+      <li><a href="https://quq99.github.io/tags/pointer" role="button">pointer </a></li>
+      
+    
+      <li><a href="https://quq99.github.io/tags/const" role="button">const </a></li>
       
     
   </div>
@@ -693,23 +561,16 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
           <div class="row pt-3">
             <div class="col-md-6">
               
-                <a href=https://quq99.github.io/blog/2019-05/mapping-keys-in-vim/ class="post-meta">Previous
+                <a href=https://quq99.github.io/blog/2019-06/vim-plugin-manager/ class="post-meta">Previous
                   <div class="pt-2 pb-5 d-flex">
                     <i class="fas fa-angle-left text-grey font-weight-bold mr-2 active-color"></i>
-                    <span>Mapping keys in vim</span>
+                    <span>Vim plugin manager</span>
                   </div>
                 </a>
               
             </div>
             
             <div class="col-md-6 text-right" >
-              
-                <a href=https://quq99.github.io/blog/2019-06/c-const-pointer/ class="post-meta">Next
-                  <div class="pt-2 pb-5 flex-reverse">
-                    <i class="fas fa-angle-right text-grey font-weight-bold ml-2 active-color"></i>
-                    <span>C&#43;&#43;: const &amp; pointer</span>
-                  </div>
-                </a>
               
             </div>
           </div>
@@ -755,8 +616,8 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#which-one">
-												 Which one?
+						 					<a class="nav-link" href="#point-to-const-or-const-pointer">
+												 Point-to-const or const pointer
 											</a>
 										</li>
 						 
@@ -777,8 +638,8 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#use-vim-plug-to-manage-plugins">
-												 Use vim-plug to manage plugins
+						 					<a class="nav-link" href="#examples">
+												 Examples
 											</a>
 										</li>
 						 
@@ -801,34 +662,8 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#install">
-												 Install
-											</a>
-										</li>
-						 
-								
-								
-									</ul>
-								
-									</ul>
-								
-							
-						
-				 
-						
-						
-							
-								
-								
-									<ul class="nav">
-								
-									<ul class="nav">
-								
-								
-
-										<li class="nav-item">
-						 					<a class="nav-link" href="#usage-pipeline">
-												 Usage Pipeline
+						 					<a class="nav-link" href="#pointer-to-constant">
+												 pointer to constant
 											</a>
 										</li>
 						 
@@ -853,8 +688,8 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#plug-options">
-												 Plug options
+						 					<a class="nav-link" href="#make-the-pointer-itself-constant">
+												 make the pointer itself constant
 											</a>
 										</li>
 						 
@@ -874,19 +709,15 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 								
 									<ul class="nav">
 								
-									<ul class="nav">
-								
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#commands">
-												 Commands
+						 					<a class="nav-link" href="#const-pointer-that-point-to-a-const-object">
+												 Const pointer that point to a const object
 											</a>
 										</li>
 						 
 								
-								
-									</ul>
 								
 									</ul>
 								

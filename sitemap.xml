@@ -3,26 +3,67 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://quq99.github.io/tags/c&#43;&#43;/</loc>
+    <lastmod>2019-06-26T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/blog/2019-06/c-const-pointer/</loc>
+    <lastmod>2019-06-26T20:14:59+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://quq99.github.io/categories/</loc>
-    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
+    <lastmod>2019-06-26T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/categories/language/</loc>
+    <lastmod>2019-06-26T20:14:59+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://quq99.github.io/</loc>
-    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
+    <lastmod>2019-06-26T20:14:59+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://quq99.github.io/series/</loc>
-    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
+    <lastmod>2019-06-26T20:14:59+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://quq99.github.io/tags/</loc>
-    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
+    <lastmod>2019-06-26T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/tags/blog/</loc>
+    <lastmod>2019-06-26T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/tags/const/</loc>
+    <lastmod>2019-06-26T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/series/my_c&#43;&#43;_journey/</loc>
+    <lastmod>2019-06-26T20:14:59+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quq99.github.io/tags/pointer/</loc>
+    <lastmod>2019-06-26T20:14:59+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -35,12 +76,6 @@
   <url>
     <loc>https://quq99.github.io/blog/2019-06/vim-plugin-manager/</loc>
     <lastmod>2019-06-16T20:14:59+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://quq99.github.io/tags/blog/</loc>
-    <lastmod>2019-06-16T20:14:59+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

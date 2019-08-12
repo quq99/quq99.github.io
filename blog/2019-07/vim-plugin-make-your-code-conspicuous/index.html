@@ -353,7 +353,7 @@
 
     
       <li class="middot"></li>
-      <li>One minute read</li>
+      <li>2 minutes read</li>
     
   </ul>
   
@@ -366,7 +366,104 @@
 
 
           <div class="post-content markdown">
-            <p>In this post, I would like to introduce two Plugins that can make your code more conspicuous in vim.</p>
+            
+
+<p>In this post, I would like to share two Plugins that can make your code more conspicuous in vim.</p>
+
+<h1 id="vim-interestingwords">vim-interestingwords</h1>
+
+<p>The first Plugin is <code>vim-interestingwords</code>.</p>
+
+<p>This plugin can highlight the occurrences of the word under the cursor. The beauty of this plugin is it can highlight different words simultaneously with different color. And this feature is really helpful when you navigate the code.</p>
+
+<p>The plugin looks like this:</p>
+
+<p><img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-07/vim_interestingwords.png" alt="vim_interestingwords" /></p>
+
+<h2 id="installation">Installation</h2>
+
+<p>The installation is simple, I use the <code>vim-plug</code> plugin manager to install it.</p>
+
+<p>First add the following line to <code>.vimrc</code> file</p>
+
+<pre><code class="language-sh">Plug 'lfv89/vim-interestingwords'
+</code></pre>
+
+<p>Then <code>source .vimrc</code> in terminal to make rc file work and finally run <code>:PlugInstall</code> in vim.</p>
+
+<h2 id="usage">Usage</h2>
+
+<ul>
+<li>Highlight words</li>
+</ul>
+
+<p>Use <code>&lt;leader&gt;k</code>  to highlight all the occurrence of the word under the current cursor, and press it again to cancel the highlighting.</p>
+
+<p>We can highlight multiple different words at the same time with different color.</p>
+
+<ul>
+<li>Navigating through words</li>
+</ul>
+
+<p>Use <code>N</code> and <code>n</code> to navigate through the occurrences of this word. This is just like what we do through the results of a search.</p>
+
+<ul>
+<li>Clear all highlight</li>
+</ul>
+
+<p>Use <code>&lt;leader&gt;K</code> to cancel all highlight words.</p>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>I think the default config is OK enough for me. However, if we want to personalize our own configuration. It is also welcome. We can add the following config to our <code>.vimrc</code> file</p>
+
+<ul>
+<li>mapping</li>
+</ul>
+
+<pre><code class="language-sh">nnoremap &lt;silent&gt; short_cut_for_highlight_words :call InterestingWords('n')&lt;cr&gt;
+nnoremap &lt;silent&gt; short_cut_for_clear_all_highlight :call UncolorAllWords()&lt;cr&gt;
+
+nnoremap &lt;silent&gt; short_cut_for_navigate_previous_word :call WordNavigation('forward')&lt;cr&gt;
+nnoremap &lt;silent&gt; short_cut_for_navigate_next_word :call WordNavigation('backward')&lt;cr&gt;
+</code></pre>
+
+<ul>
+<li>color</li>
+</ul>
+
+<pre><code class="language-sh">let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF']
+</code></pre>
+
+<p>If you want to randomize the colors</p>
+
+<pre><code class="language-sh">let g:interestingWordsRandomiseColors = 1
+</code></pre>
+
+<h1 id="vim-cursorword">vim-cursorword</h1>
+
+<p>The second plugin is <code>vim-cursorword</code>.</p>
+
+<p>This plugin can underlines the word under the cursor and underline the occurrences of this word at the same time.</p>
+
+<p>The plugin looks like this:</p>
+
+<p><img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-07/vim_cursorword.gif" alt="vim_cursorword" /></p>
+
+<h2 id="installation-1">Installation</h2>
+
+<p>Again, I use <code>vim-plug</code> in install this plugin.</p>
+
+<p>First add the following line to <code>.vimrc</code> file</p>
+
+<pre><code class="language-sh">Plug 'itchyny/vim-cursorword'
+</code></pre>
+
+<p>Then <code>source .vimrc</code> in terminal to make rc file work and finally run <code>:PlugInstall</code> in vim.</p>
+
+<h2 id="usage-1">Usage</h2>
+
+<p>After the installation, the plugin will work immediately and you don&rsquo;t have to do anything.</p>
 
           </div>
 
@@ -428,6 +525,206 @@
 	
 	
 	
+	
+		
+		
+		
+	
+
+		
+		<div class="col-md-2 pl-0">
+
+			
+			<div id="page-scrollspy" class="toc-nav">
+				
+				<ul class="nav nav-pills ml-0">
+					
+					<li class="nav-item pb-3 text-center">
+						<span class="font-weight-bold mb-2">- CATALOG - </span>
+					</li>
+
+					
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#vim-interestingwords">
+												 vim-interestingwords
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#installation">
+												 Installation
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#usage">
+												 Usage
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#configuration">
+												 Configuration
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#vim-cursorword">
+												 vim-cursorword
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#installation-1">
+												 Installation
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#usage-1">
+												 Usage
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+
+				</ul>
+			</div>
+			
+
+		</div>
+		
 	
 
     </div>

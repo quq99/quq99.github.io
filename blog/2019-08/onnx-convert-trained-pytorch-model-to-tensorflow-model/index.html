@@ -7,24 +7,24 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1" />
   <meta name="author" content="Qian Qu">
-  <meta name="description" content="These two Plugins can make your code more conspicuous in vim.">
+  <meta name="description" content="This post shows how to convert model between two Neural Network Framework by using a fantastic tool ONNX">
   
-  <meta property="og:title" content="Vim plugin: make your code conspicuous" />
-<meta property="og:description" content="These two Plugins can make your code more conspicuous in vim." />
+  <meta property="og:title" content="ONNX : convert trained pytorch model to tensorflow model" />
+<meta property="og:description" content="This post shows how to convert model between two Neural Network Framework by using a fantastic tool ONNX" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://quq99.github.io/blog/2019-07/vim-plugin-make-your-code-conspicuous/" />
-<meta property="article:published_time" content="2019-07-16T20:14:59&#43;08:00"/>
-<meta property="article:modified_time" content="2019-07-16T20:14:59&#43;08:00"/><meta property="og:see_also" content="https://quq99.github.io/blog/2019-06/vim-plugin-manager/" /><meta property="og:see_also" content="https://quq99.github.io/blog/2019-05/mapping-keys-in-vim/" />
+<meta property="og:url" content="https://quq99.github.io/blog/2019-08/onnx-convert-trained-pytorch-model-to-tensorflow-model/" />
+<meta property="article:published_time" content="2019-08-16T20:14:59&#43;08:00"/>
+<meta property="article:modified_time" content="2019-08-16T20:14:59&#43;08:00"/>
 
 
 
   <title>
   
-       Vim plugin: make your code conspicuous | Qian Qu 
+       ONNX : convert trained pytorch model to tensorflow model | Qian Qu 
   
   </title>
 
-  <link rel="canonical" href="https://quq99.github.io/blog/2019-07/vim-plugin-make-your-code-conspicuous/">
+  <link rel="canonical" href="https://quq99.github.io/blog/2019-08/onnx-convert-trained-pytorch-model-to-tensorflow-model/">
 
   
   
@@ -339,26 +339,26 @@
     
     
       
-        <li><a href="https://quq99.github.io/series/my_vim_journey"><i class="fas fa-bookmark pr-1" aria-hidden="true"></i>my_vim_journey</a></li>
+        <li><a href="https://quq99.github.io/series/my_machine_learning_journey"><i class="fas fa-bookmark pr-1" aria-hidden="true"></i>my_machine_learning_journey</a></li>
       
     
   </ul>
 
-  <div class="px-4 post-heading">Vim plugin: make your code conspicuous</div>
+  <div class="px-4 post-heading">ONNX : convert trained pytorch model to tensorflow model</div>
 
   <ul class="post-meta li-x mt-1">
     
-      <li>Jul 16, 2019</li>
+      <li>Aug 16, 2019</li>
     
 
     
       <li class="middot"></li>
-      <li>2 minutes read</li>
+      <li>5 minutes read</li>
     
   </ul>
   
     <div class="view">
-      <img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-07/cover.png" />
+      <img src="https://quq99.github.io/images/blog/series/my_machine_learning_journey/2019-08/cover1.jpg" />
     </div>
   
 
@@ -368,102 +368,242 @@
           <div class="post-content markdown">
             
 
-<p>In this post, I would like to share two Plugins that can make your code more conspicuous in vim.</p>
+<p>In this post, I would like to share how to convert a trained Pytorch model to a Tensorflow model.</p>
 
-<h1 id="vim-interestingwords">vim-interestingwords</h1>
+<h1 id="onnx">ONNX</h1>
 
-<p>The first Plugin is <code>vim-interestingwords</code>.</p>
+<p>What is ONNX?</p>
 
-<p>This plugin can highlight the occurrences of the word under the cursor. The beauty of this plugin is it can highlight different words simultaneously with different color. And this feature is really helpful when you navigate the code.</p>
+<p><a href="https://github.com/onnx/onnx">ONNX(Open Neural Network Exchange)</a> is an open ecosystem that empowers AI developers to choose the right tools as their project evolves. Briefly speaking, it enables interoperability between different frameworks and streamlining the path from research to production helps increase the speed of innovation in the AI community. To achieves this, it defines an extensible computation graph model, as well as built in operators and standard data types.</p>
 
-<p>The plugin looks like this:</p>
+<p><img src="https://quq99.github.io/images/blog/series/my_machine_learning_journey/2019-08/onnx.png" alt="onnx" /></p>
 
-<p><img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-07/vim_interestingwords.png" alt="vim_interestingwords" /></p>
+<p>We can think the Deep Learning as calculation over data flow graphs. The graphs are divided into two types: <code>Dynamic</code> and <code>Static</code> graphs. Different deep learning framework uses different kind of graphs. For instance, frameworks like Tensorflow, Caffe2, CNTK, Theano prefer to use static graph while others such as Pytorch, Chainer use dynamic graphs.</p>
 
-<h2 id="installation">Installation</h2>
+<p>Both of them have Pros and Cons. As for static graph, once the graph is defined it can be used multiple times as fast as possible cause we are not going to create anything new. Also, the static computation graph can be used to schedule computation across a pool of computational devices so computational cost could be shared. So, once defined we can use the optimization compiler to optimize the graph so that large graph can be run efficiently on either CPUs or GPUs. However, it is not flexible. And, because many logic errors will wait to be uncovered until execution, static graph has difficulty in debugging. As for dynamic graph, it is more flaxible, you can define, change and execute the network as you go. There is no such special <code>sessions</code> like we do in static graphs. It is more pythonic and easy to debug. However it is not that fast compared to static graph. So, it will be really great if we could develop the model using dynamic graph and deploy it using static graph. And, here he comes &ndash; ONNX.</p>
 
-<p>The installation is simple, I use the <code>vim-plug</code> plugin manager to install it.</p>
+<p>In the rest of this blog, I will use an example to illustrate how to convert a pytorch model to a tensorflow model. The whole .ipynb notebook can be found in our <a href="https://github.com/aobo-y/hair-dye/blob/master/src/torch2tf.ipynb">repository</a></p>
 
-<p>First add the following line to <code>.vimrc</code> file</p>
+<h1 id="install-onnx">Install ONNX</h1>
 
-<pre><code class="language-sh">Plug 'lfv89/vim-interestingwords'
+<p>It is easy,</p>
+
+<pre><code class="language-sh">$ pip install tensorflow onnx onnx-tf
 </code></pre>
 
-<p>Then <code>source .vimrc</code> in terminal to make rc file work and finally run <code>:PlugInstall</code> in vim.</p>
+<h1 id="import-pytorch-model">Import pytorch model</h1>
 
-<h2 id="usage">Usage</h2>
+<p>Our model looks like this, it is proposed by <a href="https://arxiv.org/pdf/1712.07168.pdf">Alex L. Cheng C, etc. &lsquo;Real-time deep hair matting on mobile devices&rsquo;</a> .</p>
 
-<ul>
-<li>Highlight words</li>
-</ul>
+<p><img src="https://quq99.github.io/images/blog/series/my_machine_learning_journey/2019-08/fcnmodel.png" alt="onnx" /></p>
 
-<p>Use <code>&lt;leader&gt;k</code>  to highlight all the occurrence of the word under the current cursor, and press it again to cancel the highlighting.</p>
+<p>For the pytorch implementation of this model, you can refer to <a href="https://github.com/aobo-y/hair-dye/tree/master/src/models">our repository</a></p>
 
-<p>We can highlight multiple different words at the same time with different color.</p>
+<h1 id="load-torch-model-and-export-it-to-onnx-model">load torch model and export it to ONNX model</h1>
 
-<ul>
-<li>Navigating through words</li>
-</ul>
+<p>First, define a function to load the model from pertained file.</p>
 
-<p>Use <code>N</code> and <code>n</code> to navigate through the occurrences of this word. This is just like what we do through the results of a search.</p>
+<pre><code class="language-python"># import our Hair network
+from models import MobileHairNet
+# import config file
+import config
 
-<ul>
-<li>Clear all highlight</li>
-</ul>
-
-<p>Use <code>&lt;leader&gt;K</code> to cancel all highlight words.</p>
-
-<h2 id="configuration">Configuration</h2>
-
-<p>I think the default config is OK enough for me. However, if we want to personalize our own configuration. It is also welcome. We can add the following config to our <code>.vimrc</code> file</p>
-
-<ul>
-<li>mapping</li>
-</ul>
-
-<pre><code class="language-sh">nnoremap &lt;silent&gt; short_cut_for_highlight_words :call InterestingWords('n')&lt;cr&gt;
-nnoremap &lt;silent&gt; short_cut_for_clear_all_highlight :call UncolorAllWords()&lt;cr&gt;
-
-nnoremap &lt;silent&gt; short_cut_for_navigate_previous_word :call WordNavigation('forward')&lt;cr&gt;
-nnoremap &lt;silent&gt; short_cut_for_navigate_next_word :call WordNavigation('backward')&lt;cr&gt;
+def build_model(path, device):
+    model = MobileHairNet()
+    checkpoint = torch.load(path, map_location=device)
+    model.load_state_dict(checkpoint['model'])
+    # use appropriate device
+    model = model.to(device)
+    
+    return model
 </code></pre>
 
-<ul>
-<li>color</li>
-</ul>
+<p>Then we can load the model. <code>TORCH_MODEL_PATH</code> is our pretrained model&rsquo;s path</p>
 
-<pre><code class="language-sh">let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF']
+<p><code>hair-dye/src/checkpoints/default/train_170.pt</code></p>
+
+<p>Note that to export the model to ONNX model, we need a dummy input, so we just use an random input(batch_size, channel_size, height_size, weight_size). Our model has input size of (1, 3, 224, 224).</p>
+
+<p>After we run the code, the notebook will print some information about the network. It looks like this:</p>
+
+<pre><code class="language-python">torch_model = build_model(TORCH_MODEL_PATH, device)
+# export model to ONNX
+# ONNX need a dummy input
+dummy_input = Variable(torch.randn(1, 3, config.IMG_SIZE, config.IMG_SIZE))
+# pred = torch_model(dummy_input)
+# print(&quot;output size: &quot;, pred.size())
+
+input_names = [&quot;input&quot;]
+output_names = [&quot;output&quot;]
+torch.onnx.export(torch_model, dummy_input, ONNX_MODEL_PATH, verbose=True, input_names=input_names, output_names=output_names)
 </code></pre>
 
-<p>If you want to randomize the colors</p>
+<blockquote>
+<pre><code>&gt; ...
+&gt; %215 : Float(1, 32, 224, 224) = onnx::Conv[dilations=[1, 1], group=1, kernel_shape=[3, 3], pads=[1, 1, 1, 1], strides=[2, 2]](%input, %1, %2), scope: MobileHairNet/_EncodeBlockBlueGreen[encode_block1]/Sequential[layer]/_BlueBlock[0]/Conv2d[layer]
+&gt;   %216 : Float(1, 32, 224, 224) = onnx::Conv[dilations=[1, 1], group=32, kernel_shape=[3, 3], pads=[1, 1, 1, 1], strides=[1, 1]](%215, %3, %4), scope: MobileHairNet/_EncodeBlockBlueGreen[encode_block1]/Sequential[layer]/_GreenBlock[1]/Sequential[layer]/Conv2d[0]
+&gt;   %217 : Float(1, 32, 224, 224) = onnx::BatchNormalization[epsilon=1e-05, is_test=1, momentum=1](%216, %5, %6, %7, %8), scope: MobileHairNet/_EncodeBlockBlueGreen[encode_block1]/Sequential[layer]/_GreenBlock[1]/Sequential[layer]/BatchNorm2d[1]
+&gt;   %218 : Float(1, 32, 224, 224) = onnx::Clip[max=6, min=0](%217), scope: MobileHairNet/_EncodeBlockBlueGreen[encode_block1]/Sequential[layer]/_GreenBlock[1]/Sequential[layer]/ReLU6[2]
+&gt;   ...
+&gt; ```
 
-<pre><code class="language-sh">let g:interestingWordsRandomiseColors = 1
+
+
+# import the ONNX model to tensorflow
+
+
+
+```python
+# load the onnx file
+onnx_model = onnx.load(ONNX_MODEL_PATH)
+# Check the model
+onnx.checker.check_model(onnx_model)
+# print('The model before conversion:\n{}'.format(onnx_or_model))
+
+# # A full list of supported adapters can be found here:
+# # https://github.com/onnx/onnx/blob/master/onnx/version_converter.py#L21
+# # Apply the version conversion on the original model
+# onnx_model = version_converter.convert_version(onnx_or_model, 7)
+
+# print('The model after conversion:\n{}'.format(onnx_model))
+
+
+# import onnx to TF model
+tf_rep = prepare(onnx_model)
+</code></pre>
+</blockquote>
+
+<p>Here I get an error,</p>
+
+<p><code>NotImplementedError: Upsample version 1 is not implemented.</code></p>
+
+<p>I search the Issues on ONNX repo on GitHub. Here is someone&rsquo;s answer</p>
+
+<blockquote>
+<p>Upsample was an experimental op in ONNX before opset=7. Since ONNX decided to totally remove experimental ops, we have not taken the implementation for the experimental upsample (opset=1) into the v1.3.0 release. Your onnx file seems for opset=6 therefore the error. If you could possibly regenerate the onnx file with opset 7 or newer, it should work with onnx-tf v1.3.0. Sorry about the confusion.</p>
+</blockquote>
+
+<p>So, I search the version_converter function in ONNX. Unfortunately it does not work. Then I was considering downgrade the version of ONNX. I search the doc on github repo. I get the version information</p>
+
+<table>
+<thead>
+<tr>
+<th>ONNX version</th>
+<th>File format version</th>
+<th>Operator set version ai.onnx</th>
+<th>Operator set version ai.onnx.ml</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>1.0</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>1.1</td>
+<td>3</td>
+<td>5</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>1.1.2</td>
+<td>3</td>
+<td>6</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>1.2</td>
+<td>3</td>
+<td>7</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>1.3</td>
+<td>3</td>
+<td>8</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>1.4.1</td>
+<td>4</td>
+<td>9</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>1.5.0</td>
+<td>5</td>
+<td>10</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+<p>Also I search the operator set support of upsampling</p>
+
+<blockquote>
+<h3 id="upsample-deprecated"><strong>Upsample</strong> (deprecated)</h3>
+
+<p>Upsample the input tensor. Each dimension value of the output tensor is: output_dimension = floor(input_dimension * scale).</p>
+
+<h4 id="version">Version</h4>
+
+<p>This version of the operator has been deprecated since version 10 of the default ONNX operator set.</p>
+
+<p>Other versions of this operator: <a href="https://github.com/onnx/onnx/blob/master/docs/Changelog.md#Upsample-7">Upsample-7</a>, <a href="https://github.com/onnx/onnx/blob/master/docs/Changelog.md#Upsample-9">Upsample-9</a></p>
+</blockquote>
+
+<p>So, it seems I need version 7 operator set. So I need to downgrade the version to 1.2.</p>
+
+<pre><code class="language-sh">pip install tensorflow==1.13.1 onnx==1.2.1 onnx-tf==1.1.2
 </code></pre>
 
-<h1 id="vim-cursorword">vim-cursorword</h1>
+<p>After some attempt, this version works fine to me.</p>
 
-<p>The second plugin is <code>vim-cursorword</code>.</p>
+<h1 id="save-to-file">Save to file</h1>
 
-<p>This plugin can underlines the word under the cursor and underline the occurrences of this word at the same time.</p>
-
-<p>The plugin looks like this:</p>
-
-<p><img src="https://quq99.github.io/images/blog/series/my_vim_journey/2019-07/vim_cursorword.gif" alt="vim_cursorword" /></p>
-
-<h2 id="installation-1">Installation</h2>
-
-<p>Again, I use <code>vim-plug</code> in install this plugin.</p>
-
-<p>First add the following line to <code>.vimrc</code> file</p>
-
-<pre><code class="language-sh">Plug 'itchyny/vim-cursorword'
+<pre><code class="language-python">tf_rep.export_graph(TF_MODEL_PATH)
 </code></pre>
 
-<p>Then <code>source .vimrc</code> in terminal to make rc file work and finally run <code>:PlugInstall</code> in vim.</p>
+<p>TF_MODEL_PATH is the new tensorflow graph model path</p>
 
-<h2 id="usage-1">Usage</h2>
+<h1 id="run-the-onnx-model-to-see-if-it-works">Run the ONNX model to see if it works</h1>
 
-<p>After the installation, the plugin will work immediately and you don&rsquo;t have to do anything.</p>
+<p><code>ImgTransformer</code> will load the image and do preprocessing.</p>
+
+<pre><code class="language-python">class ImgTransformer():
+    def __init__(self, img_size, color_aug=False):
+        self.img_size = img_size
+        self.color_aug = color_aug
+
+    def transform(self, image):
+        transformer = transforms.Compose([
+            transforms.CenterCrop(min(image.size[0], image.size[1])),
+            transforms.Resize(self.img_size)
+        ] + ([
+            transforms.ColorJitter(brightness=1, contrast=1, saturation=1, hue=.5),
+            transforms.RandomGrayscale(p=0.1)
+        ] if self.color_aug else []) + [
+            transforms.ToTensor(),
+            transforms.Normalize((.5, .5, .5), (.5, .5, .5))
+        ])
+
+        transform_image = transformer(image)
+
+        return transform_image
+
+    def load(self, path):
+        image = Image.open(path).convert('RGB')
+        return self.transform(image)
+</code></pre>
 
           </div>
 
@@ -477,13 +617,16 @@ nnoremap &lt;silent&gt; short_cut_for_navigate_next_word :call WordNavigation('b
   <li class="pr-0"><a href="https://quq99.github.io/tags/"><i class="fas fa-tags"></i></a></li>
   <div class="tags-sm">
     
-      <li><a href="https://quq99.github.io/tags/vim" role="button">vim </a></li>
+      <li><a href="https://quq99.github.io/tags/machine_learning" role="button">machine_learning </a></li>
       
     
       <li><a href="https://quq99.github.io/tags/blog" role="button">blog </a></li>
       
     
-      <li><a href="https://quq99.github.io/tags/plugins" role="button">plugins </a></li>
+      <li><a href="https://quq99.github.io/tags/pytorch" role="button">pytorch </a></li>
+      
+    
+      <li><a href="https://quq99.github.io/tags/tensorflow" role="button">tensorflow </a></li>
       
     
   </div>
@@ -499,23 +642,16 @@ nnoremap &lt;silent&gt; short_cut_for_navigate_next_word :call WordNavigation('b
           <div class="row pt-3">
             <div class="col-md-6">
               
-                <a href=https://quq99.github.io/blog/2019-06/c-const-pointer/ class="post-meta">Previous
+                <a href=https://quq99.github.io/blog/2019-07/vim-plugin-make-your-code-conspicuous/ class="post-meta">Previous
                   <div class="pt-2 pb-5 d-flex">
                     <i class="fas fa-angle-left text-grey font-weight-bold mr-2 active-color"></i>
-                    <span>C&#43;&#43;: const &amp; pointer</span>
+                    <span>Vim plugin: make your code conspicuous</span>
                   </div>
                 </a>
               
             </div>
             
             <div class="col-md-6 text-right" >
-              
-                <a href=https://quq99.github.io/blog/2019-08/onnx-convert-trained-pytorch-model-to-tensorflow-model/ class="post-meta">Next
-                  <div class="pt-2 pb-5 flex-reverse">
-                    <i class="fas fa-angle-right text-grey font-weight-bold ml-2 active-color"></i>
-                    <span>ONNX : convert trained pytorch model to tensorflow model</span>
-                  </div>
-                </a>
               
             </div>
           </div>
@@ -561,8 +697,74 @@ nnoremap &lt;silent&gt; short_cut_for_navigate_next_word :call WordNavigation('b
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#vim-interestingwords">
-												 vim-interestingwords
+						 					<a class="nav-link" href="#onnx">
+												 ONNX
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#install-onnx">
+												 Install ONNX
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#import-pytorch-model">
+												 Import pytorch model
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#load-torch-model-and-export-it-to-onnx-model">
+												 load torch model and export it to ONNX model
 											</a>
 										</li>
 						 
@@ -582,15 +784,19 @@ nnoremap &lt;silent&gt; short_cut_for_navigate_next_word :call WordNavigation('b
 								
 									<ul class="nav">
 								
+									<ul class="nav">
+								
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#installation">
-												 Installation
+						 					<a class="nav-link" href="#upsample-deprecated">
+												 Upsample (deprecated)
 											</a>
 										</li>
 						 
 								
+								
+									</ul>
 								
 									</ul>
 								
@@ -608,11 +814,15 @@ nnoremap &lt;silent&gt; short_cut_for_navigate_next_word :call WordNavigation('b
 								
 									<ul class="nav">
 								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#usage">
-												 Usage
+						 					<a class="nav-link" href="#version">
+												 Version
 											</a>
 										</li>
 						 
@@ -621,28 +831,6 @@ nnoremap &lt;silent&gt; short_cut_for_navigate_next_word :call WordNavigation('b
 									</ul>
 								
 									</ul>
-								
-							
-						
-				 
-						
-						
-							
-								
-								
-									<ul class="nav">
-								
-									<ul class="nav">
-								
-								
-
-										<li class="nav-item">
-						 					<a class="nav-link" href="#configuration">
-												 Configuration
-											</a>
-										</li>
-						 
-								
 								
 									</ul>
 								
@@ -661,8 +849,8 @@ nnoremap &lt;silent&gt; short_cut_for_navigate_next_word :call WordNavigation('b
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#vim-cursorword">
-												 vim-cursorword
+						 					<a class="nav-link" href="#save-to-file">
+												 Save to file
 											</a>
 										</li>
 						 
@@ -680,45 +868,15 @@ nnoremap &lt;silent&gt; short_cut_for_navigate_next_word :call WordNavigation('b
 								
 									<ul class="nav">
 								
-									<ul class="nav">
-								
 								
 
 										<li class="nav-item">
-						 					<a class="nav-link" href="#installation-1">
-												 Installation
+						 					<a class="nav-link" href="#run-the-onnx-model-to-see-if-it-works">
+												 Run the ONNX model to see if it works
 											</a>
 										</li>
 						 
 								
-								
-									</ul>
-								
-									</ul>
-								
-							
-						
-				 
-						
-						
-							
-								
-								
-									<ul class="nav">
-								
-									<ul class="nav">
-								
-								
-
-										<li class="nav-item">
-						 					<a class="nav-link" href="#usage-1">
-												 Usage
-											</a>
-										</li>
-						 
-								
-								
-									</ul>
 								
 									</ul>
 								

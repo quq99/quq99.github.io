@@ -439,22 +439,19 @@ torch.onnx.export(torch_model, dummy_input, ONNX_MODEL_PATH, verbose=True, input
 </code></pre>
 
 <blockquote>
-<pre><code>&gt; ...
-&gt; %215 : Float(1, 32, 224, 224) = onnx::Conv[dilations=[1, 1], group=1, kernel_shape=[3, 3], pads=[1, 1, 1, 1], strides=[2, 2]](%input, %1, %2), scope: MobileHairNet/_EncodeBlockBlueGreen[encode_block1]/Sequential[layer]/_BlueBlock[0]/Conv2d[layer]
-&gt;   %216 : Float(1, 32, 224, 224) = onnx::Conv[dilations=[1, 1], group=32, kernel_shape=[3, 3], pads=[1, 1, 1, 1], strides=[1, 1]](%215, %3, %4), scope: MobileHairNet/_EncodeBlockBlueGreen[encode_block1]/Sequential[layer]/_GreenBlock[1]/Sequential[layer]/Conv2d[0]
-&gt;   %217 : Float(1, 32, 224, 224) = onnx::BatchNormalization[epsilon=1e-05, is_test=1, momentum=1](%216, %5, %6, %7, %8), scope: MobileHairNet/_EncodeBlockBlueGreen[encode_block1]/Sequential[layer]/_GreenBlock[1]/Sequential[layer]/BatchNorm2d[1]
-&gt;   %218 : Float(1, 32, 224, 224) = onnx::Clip[max=6, min=0](%217), scope: MobileHairNet/_EncodeBlockBlueGreen[encode_block1]/Sequential[layer]/_GreenBlock[1]/Sequential[layer]/ReLU6[2]
-&gt;   ...
-&gt; ```
+<p>&hellip;
+%215 : Float(1, 32, 224, 224) = onnx::Conv<a href="%input, %1, %2">dilations=[1, 1], group=1, kernel_shape=[3, 3], pads=[1, 1, 1, 1], strides=[2, 2]</a>, scope: MobileHairNet/_EncodeBlockBlueGreen[encode_block1]/Sequential[layer]/_BlueBlock[0]/Conv2d[layer]
+  %216 : Float(1, 32, 224, 224) = onnx::Conv<a href="%215, %3, %4">dilations=[1, 1], group=32, kernel_shape=[3, 3], pads=[1, 1, 1, 1], strides=[1, 1]</a>, scope: MobileHairNet/_EncodeBlockBlueGreen[encode_block1]/Sequential[layer]/_GreenBlock[1]/Sequential[layer]/Conv2d[0]
+  %217 : Float(1, 32, 224, 224) = onnx::BatchNormalization<a href="%216, %5, %6, %7, %8">epsilon=1e-05, is_test=1, momentum=1</a>, scope: MobileHairNet/_EncodeBlockBlueGreen[encode_block1]/Sequential[layer]/_GreenBlock[1]/Sequential[layer]/BatchNorm2d[1]
+  %218 : Float(1, 32, 224, 224) = onnx::Clip<a href="%217">max=6, min=0</a>, scope: MobileHairNet/_EncodeBlockBlueGreen[encode_block1]/Sequential[layer]/_GreenBlock[1]/Sequential[layer]/ReLU6[2]
+  &hellip;</p>
+</blockquote>
 
+<p>we can check if the network is converted right.</p>
 
+<h1 id="import-the-onnx-model-to-tensorflow">import the ONNX model to tensorflow</h1>
 
-# import the ONNX model to tensorflow
-
-
-
-```python
-# load the onnx file
+<pre><code class="language-python"># load the onnx file
 onnx_model = onnx.load(ONNX_MODEL_PATH)
 # Check the model
 onnx.checker.check_model(onnx_model)
@@ -471,7 +468,6 @@ onnx.checker.check_model(onnx_model)
 # import onnx to TF model
 tf_rep = prepare(onnx_model)
 </code></pre>
-</blockquote>
 
 <p>Here I get an error,</p>
 
@@ -765,6 +761,28 @@ tf_rep = prepare(onnx_model)
 										<li class="nav-item">
 						 					<a class="nav-link" href="#load-torch-model-and-export-it-to-onnx-model">
 												 load torch model and export it to ONNX model
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#import-the-onnx-model-to-tensorflow">
+												 import the ONNX model to tensorflow
 											</a>
 										</li>
 						 

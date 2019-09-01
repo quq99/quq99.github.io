@@ -6,10 +6,19 @@
     <description>Recent content in Tools on Qian Qu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 16 Aug 2019 20:14:59 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 17 Aug 2019 20:14:59 +0800</lastBuildDate>
     
 	<atom:link href="https://quq99.github.io/categories/tools/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Deploy the hair segmentation model to android application</title>
+      <link>https://quq99.github.io/blog/2019-08/deploy-the-hair-segmentation-model-to-android-application/</link>
+      <pubDate>Sat, 17 Aug 2019 20:14:59 +0800</pubDate>
+      
+      <guid>https://quq99.github.io/blog/2019-08/deploy-the-hair-segmentation-model-to-android-application/</guid>
+      <description>This post shows how to deploy tensorflow lite model into android application</description>
+    </item>
     
     <item>
       <title>ONNX : convert trained pytorch model to tensorflow model</title>

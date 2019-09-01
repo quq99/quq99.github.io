@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>tensorflow on Qian Qu</title>
-    <link>https://quq99.github.io/tags/tensorflow/</link>
-    <description>Recent content in tensorflow on Qian Qu</description>
+    <title>android on Qian Qu</title>
+    <link>https://quq99.github.io/tags/android/</link>
+    <description>Recent content in android on Qian Qu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 17 Aug 2019 20:14:59 +0800</lastBuildDate>
     
-	<atom:link href="https://quq99.github.io/tags/tensorflow/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://quq99.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       
       <guid>https://quq99.github.io/blog/2019-08/deploy-the-hair-segmentation-model-to-android-application/</guid>
       <description>This post shows how to deploy tensorflow lite model into android application</description>
-    </item>
-    
-    <item>
-      <title>ONNX : convert trained pytorch model to tensorflow model</title>
-      <link>https://quq99.github.io/blog/2019-08/onnx-convert-trained-pytorch-model-to-tensorflow-model/</link>
-      <pubDate>Fri, 16 Aug 2019 20:14:59 +0800</pubDate>
-      
-      <guid>https://quq99.github.io/blog/2019-08/onnx-convert-trained-pytorch-model-to-tensorflow-model/</guid>
-      <description>This post shows how to convert model between two Neural Network Framework by using a fantastic tool ONNX</description>
     </item>
     
   </channel>

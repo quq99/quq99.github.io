@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1" />
+  <meta name="author" content="Qian Qu">
+  <meta name="description" content="This post shows how to deploy tensorflow lite model into android application">
+  
+  <meta property="og:title" content="Deploy the hair segmentation model to android application" />
+<meta property="og:description" content="This post shows how to deploy tensorflow lite model into android application" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://quq99.github.io/blog/2019-08/deploy-the-hair-segmentation-model-to-android-application/" />
+<meta property="article:published_time" content="2019-08-17T20:14:59&#43;08:00"/>
+<meta property="article:modified_time" content="2019-08-17T20:14:59&#43;08:00"/><meta property="og:see_also" content="https://quq99.github.io/blog/2019-08/onnx-convert-trained-pytorch-model-to-tensorflow-model/" />
+
+
+
+  <title>
+  
+       Deploy the hair segmentation model to android application | Qian Qu 
+  
+  </title>
+
+  <link rel="canonical" href="https://quq99.github.io/blog/2019-08/deploy-the-hair-segmentation-model-to-android-application/">
+
+  
+  
+
+  
+  <link href="https://quq99.github.io/css/vendors-extensions/fontawesome/all.min.css" rel="stylesheet">
+
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:300,400,500,600">
+  <link href="https://quq99.github.io/css/font.css" rel="stylesheet"> 
+    
+  
+  <link href="https://quq99.github.io/css/vendors/bootstrap4/bootstrap.min.css" rel="stylesheet">
+  <link href="https://quq99.github.io/css/vendors-extensions/mdb/mdb.min.css" rel="stylesheet"> 
+  <link href="https://quq99.github.io/css/vendors/mdb/style.min.css" rel="stylesheet"> 
+  <link href="https://quq99.github.io/css/main.css" rel="stylesheet">
+
+
+  
+  <link rel="shortcut icon"
+  
+      href="https://quq99.github.io/img/qu2.png"
+  
+  >
+
+
+  
+  
+
+  <style type="text/css">
+      @media (min-width: 800px) and (max-width: 850px) {
+              .navbar:not(.top-nav-collapse) {
+                  background: #1C2331!important;
+              }
+          }
+  </style>
+
+
+  
+    
+    <link rel="stylesheet" href="https://quq99.github.io/js/vendors/katex/katex.min.css">
+  
+  
+
+  
+    
+    <link rel="stylesheet" href="https://quq99.github.io/css/vendors/highlight/github-gist.css">
+  
+
+</head>
+
+  <body class="bg-light" data-spy="scroll" data-target="#page-scrollspy" data-offset="90">
+  
+    
+    
+
+    
+      
+
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+    <div class="container">
+
+      
+      <a class="navbar-brand" href="https://quq99.github.io">
+          
+        <img class="avatar" src="https://quq99.github.io/img/qu2.png" style="width: 40px!important;height: auto;"  class="d-inline-block align-top" alt="" >
+        
+        <strong> Qian Qu</strong>
+      </a>
+
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        
+        <ul class="navbar-nav mr-auto ">
+          <li class="nav-item ">
+            <a class="nav-link" href="https://quq99.github.io">Home</a>
+          </li>
+             
+            <li class="nav-item ">
+              <a class="nav-link" href="https://quq99.github.io/blog/" >Blog  </a>
+            </li>
+          
+             
+            <li class="nav-item ">
+              <a class="nav-link" href="https://quq99.github.io/resume/" >Resume  </a>
+            </li>
+          
+             
+            <li class="nav-item ">
+              <a class="nav-link" href="https://quq99.github.io/about/" >About  </a>
+            </li>
+          
+          
+        </ul>
+
+      </div>
+
+    </div>
+  </nav>
+  
+ 
+      
+ 
+
+
+
+
+
+
+<div id="site-header" class="carousel slide carousel-fade" data-ride="carousel" style="height: 18rem;" >  
+
+  
+  
+  
+
+  
+  <div class="carousel-inner" role="listbox">
+    
+      
+
+        
+        <div class="carousel-item active">
+          <div class="view" style="background-image: url('https://quq99.github.io/img/header-slides/223990.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+            
+            <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+              
+              
+              
+
+            </div>
+            
+
+          </div>
+        </div>
+        
+      
+    
+      
+
+        
+        <div class="carousel-item">
+          <div class="view" style="background-image: url('https://quq99.github.io/img/header-slides//23827.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+            
+            <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+            
+
+            </div>
+            
+
+          </div>
+        </div>
+        
+      
+    
+      
+
+        
+        <div class="carousel-item">
+          <div class="view" style="background-image: url('https://quq99.github.io/img/header-slides//chi-liu-1552956-unsplash.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+            
+            <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+            
+
+            </div>
+            
+
+          </div>
+        </div>
+        
+      
+    
+      
+
+        
+        <div class="carousel-item">
+          <div class="view" style="background-image: url('https://quq99.github.io/img/header-slides//wallhaven-716074.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+            
+            <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+            
+
+            </div>
+            
+
+          </div>
+        </div>
+        
+      
+    
+      
+
+        
+        <div class="carousel-item">
+          <div class="view" style="background-image: url('https://quq99.github.io/img/header-slides//wallhaven-763507.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+            
+            <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+            
+
+            </div>
+            
+
+          </div>
+        </div>
+        
+      
+    
+
+  
+  </div>
+  
+
+  
+  <div class="carousel-content text-center white-text wow fadeIn">
+    <div class="row mx-0 headfont mt-3 pt-4">
+      
+      <div class="col-12 col-sm-5 align-middle">
+        <a href="https://quq99.github.io">
+          
+            <img class="pull-right avatar avatar-md" src="https://quq99.github.io/img/profile2.jpg" alt="" >
+          
+        </a>
+      </div>
+      
+      <div class="col-12 col-sm-7 text-left pl-2">
+        <a href="https://quq99.github.io">
+          <h1 class="mb-2 h1" style="font-weight: 300;" >
+            <strong>Qian Qu</strong>
+          </h1>
+        </a>
+        
+
+             
+        <div class="mt-2" style="font-size: 1rem; color: white;">
+            
+              <a href="//github.com/quq99" target="_blank" rel="noopener"><i class="fab fa-github pr-1" aria-hidden="true"></i></a>    
+            
+            
+              <a href="//linkedin.com/in/qian-qu-2608b2170" target="_blank" rel="noopener"><i class="fab fa-linkedin pr-1" aria-hidden="true"></i></a>
+            
+
+            
+
+            
+
+            
+
+            
+    
+            
+    
+        
+            
+                <a href="mailto:qq8jn@virginia.edu"><i class="far fa-envelope-open pr-1" aria-hidden="true"></i></a>
+            
+    
+            
+
+            
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  
+  
+  
+
+</div>
+  
+    
+
+    
+  
+  <main class="post-main-wrapper">
+    
+    
+    <div class="row">
+
+      
+
+      
+      <div class="col-md-10">
+      
+
+        
+        <div class="z-depth-1  post-wrapper white-bg single-post">
+
+          <div class="post-header text-center" >
+  <ul class="post-meta li-x">
+    
+      
+        <li><a href="https://quq99.github.io/categories/tools"><i class="fas fa-folder-open pr-1" aria-hidden="true"></i> Tools </a></li>
+      
+    
+    
+      
+        <li><a href="https://quq99.github.io/series/my_machine_learning_journey"><i class="fas fa-bookmark pr-1" aria-hidden="true"></i>my_machine_learning_journey</a></li>
+      
+    
+  </ul>
+
+  <div class="px-4 post-heading">Deploy the hair segmentation model to android application</div>
+
+  <ul class="post-meta li-x mt-1">
+    
+      <li>Aug 17, 2019</li>
+    
+
+    
+      <li class="middot"></li>
+      <li>11 minutes read</li>
+    
+  </ul>
+  
+    <div class="view">
+      <img src="https://quq99.github.io/images/blog/series/my_machine_learning_journey/2019-08/cover2.png" />
+    </div>
+  
+
+</div>
+
+
+          <div class="post-content markdown">
+            
+
+<p>In this post, I would like to share how to deploy tensorflow lite model into android application. This post concentrate more on deployment. For training procedures, refer to <a href="https://github.com/aobo-y/hair-dye">repo</a>. And all the android code is available on <a href="https://github.com/quq99/hair-dye-android">repo</a>.</p>
+
+<h1 id="fritz-androide-sdk">Fritz Androide SDK</h1>
+
+<p>Fritz is a platform that allow you to create ML features in your mobile applications with ease. <a href="https://github.com/fritzlabs/fritz-repository">Fritz repo</a></p>
+
+<h1 id="set-up-fritz-account-and-initialize-the-sdk">Set up Fritz account and initialize the SDK</h1>
+
+<p>First we need a Fritz account to upload the model and manage our project. Sign up a Fritz account and create a project. Then add an android application. Follow the instructions:</p>
+
+<h2 id="register-your-app">Register your app</h2>
+
+<p>Follow the instructions provided by Fritz.</p>
+
+<h2 id="add-the-fritz-sdk">Add the Fritz SDK</h2>
+
+<p>Install Fritz Core via Gradle</p>
+
+<ul>
+<li>In your root-level Gradle file (<code>build.gradle</code>), include the Maven repository for Fritz.</li>
+</ul>
+
+<pre><code class="language-json">allprojects {
+    repositories {
+        maven { url &quot;https://raw.github.com/fritzlabs/fritz-repository/master&quot; }
+    }
+}
+</code></pre>
+
+<ul>
+<li>In your app-level Gradle file (<code>app/build.gradle</code>), add the dependency for the core SDK.</li>
+</ul>
+
+<pre><code class="language-json">dependencies {
+    implementation 'ai.fritz:core:3+'
+}
+</code></pre>
+
+<h2 id="edit-your-androidmanifest-xml">Edit your AndroidManifest.xml</h2>
+
+<ul>
+<li>Register the FritzCustomModelService in your AndroidManifest.
+
+<br /></li>
+</ul>
+
+<pre><code class="language-php+HTML">  &lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+      &lt;!-- For model performance tracking &amp; analytics --&gt;
+      &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;
+  
+      &lt;application&gt;
+          &lt;!-- Register the custom model service for OTA model updates --&gt;
+          &lt;service
+              android:name=&quot;ai.fritz.core.FritzCustomModelService&quot;
+              android:exported=&quot;true&quot;
+              android:permission=&quot;android.permission.BIND_JOB_SERVICE&quot; /&gt;
+      &lt;/application&gt;
+  &lt;/manifest&gt;
+</code></pre>
+
+<h2 id="initialize-fritz">Initialize Fritz</h2>
+
+<ul>
+<li>Before managing custom models or using Fritz features, initialize the SDK by calling <strong>Fritz.configure()</strong> with your API Key. This only needs to be done once when the app launches.</li>
+</ul>
+
+<p>Add the following code into MainActivity class. The API key can be seen on dashboard &ldquo;Project Settings -&gt; Project Apps -&gt; Actions -&gt; show API key&rdquo;.</p>
+
+<pre><code class="language-java">  public class MainActivity extends AppCompatActivity {
+      @Override
+      protected void onCreate(Bundle savedInstanceState) {
+          // Initialize Fritz
+          Fritz.configure(this, &quot;API key&quot;);
+      }
+  }
+</code></pre>
+
+<h1 id="add-the-hairnet-model">Add the HairNet model</h1>
+
+<h2 id="upload-the-tensorflow-lite-model">Upload the tensorflow lite model</h2>
+
+<p>In Dashboard, Click &ldquo;Custom Models&rdquo; and choose &ldquo;CREATE NEW MODEL&rdquo; to upload models. Then click the model and choose &ldquo;SDK INSTRUCTIONS&rdquo;, we can see some instructions and information of the model</p>
+
+<blockquote>
+<p>Model Id: <strong>YOUR MODEL ID HERE</strong></p>
+
+<p>Model Version: <strong>1</strong></p>
+
+<p>Model Path: <strong>file:///android_asset/converted_model_hairnet.tflite</strong> (The path to your model in your Android assets folder)</p>
+</blockquote>
+
+<p>The instrucitons may be helpful, however, I use a different API for creating predictor. see <code>Create a Segmentation Predictor with a Hair Segmentation model</code> part.</p>
+
+<p>When running the program, we can see the model&rsquo;s information in &ldquo;Custom Models&rdquo; part.</p>
+
+<h2 id="add-fritz-s-tflite-library">Add Fritz’s TFLite Library</h2>
+
+<p>In your app-level Gradle file (<code>app/build.gradle</code>),</p>
+
+<pre><code class="language-json">dependencies {
+    implementation 'ai.fritz:core:3+'
+    implementation &quot;ai.fritz:vision:3+&quot;
+    implementation 'ai.fritz:custom-model-tflite:3+'
+}
+</code></pre>
+
+<p>This can make you include your own tensorflow model into your application.</p>
+
+<h2 id="no-compress-model-when-build-the-apk">No compress model when build the apk</h2>
+
+<p>Under the hood, we use <a href="https://heartbeat.fritz.ai/how-tensorflow-lite-optimizes-neural-networks-for-mobile-machine-learning-e6ffa7f8ee12">TensorFlow Lite</a> as our mobile machine learning framework. In order to make sure that the model isn’t compressed when the APK is built, you’ll need to add the following in the same build file under the <code>android</code> option.</p>
+
+<pre><code class="language-json">android {
+	aaptOptions {
+        noCompress &quot;tflite&quot;
+        noCompress &quot;lite&quot;
+    }
+}
+</code></pre>
+
+<h1 id="create-a-segmentation-predictor-with-a-hair-segmentation-model">Create a Segmentation Predictor with a Hair Segmentation model</h1>
+
+<p>We can either include your model with the app or load the model when the app runs (recommended to reduce the size of your APK). In my project, I include my model on device.</p>
+
+<h2 id="create-model-class">Create model class</h2>
+
+<p>In Dashboard, Click &ldquo;Custom Models&rdquo; and choose your uploaded model, click and then click &ldquo;SDK Instructions&rdquo;. You can see a brief instruction. And our model ID so that he Fritz can monitor the model&rsquo;s performance. Because we include the model on device rather than load the model at running time. I placed the model on local. The model is placed in <code>/app/src/main/assets/converted_model_hairnet.tflite</code>.</p>
+
+<p>Also, I found that the instructions provided by Fritz did not work well for me. So, I search the documentation and create my own model class.</p>
+
+<p>If we use the Fritz provided model,</p>
+
+<pre><code class="language-java">// Initialize the model included with the app
+SegmentOnDeviceModel onDeviceModel = new HairSegmentationOnDeviceModel();
+</code></pre>
+
+<p>This line will initialize a <code>HairSegmentationOnDeviceModel</code> class and convert it to <code>SegmentOnDeviceModel</code> class. This class will use the pretrained model provided by Fritz. So how can I use my own model?</p>
+
+<p>I searched the API document, and I noticed the inherit structure:</p>
+
+<table>
+<thead>
+<tr>
+<th>java.lang.Object</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>↳<a href="https://docs.fritz.ai/android/3.8.2/reference/ai/fritz/core/FritzManagedModel.html">ai.fritz.core.FritzManagedModel</a></td>
+</tr>
+
+<tr>
+<td>↳<a href="https://docs.fritz.ai/android/3.8.2/reference/ai/fritz/core/FritzOnDeviceModel.html">ai.fritz.core.FritzOnDeviceModel</a></td>
+</tr>
+
+<tr>
+<td>↳<a href="https://docs.fritz.ai/android/3.8.2/reference/ai/fritz/vision/imagesegmentation/SegmentOnDeviceModel.html">ai.fritz.vision.imagesegmentation.SegmentOnDeviceModel</a></td>
+</tr>
+
+<tr>
+<td>↳ai.fritz.fritzvisionhairsegmentationmodel.HairSegmentationOnDeviceModel</td>
+</tr>
+</tbody>
+</table>
+
+<p>So I can mimic the <code>HairSegmentationOnDeviceModel</code> and create an new class inherent from <code>ai.fritz.vision.imagesegmentation.SegmentOnDeviceModel</code>.</p>
+
+<p>The next thing is, I should tell the constructor the information about my model including input layer and output layer name, and input size.</p>
+
+<pre><code class="language-java">SegmentOnDeviceModel(String modelPath, String modelId, int modelVersion, MaskType[] classifications, String inputLayerName, int inputSize, String outputLayerName, int outputSize)
+</code></pre>
+
+<p>I found that the constructor of <code>SegmentOndeviceModel</code> looks like this.</p>
+
+<p>So, my model class looks like this:</p>
+
+<p>The input layer name is &ldquo;input:0&rdquo; and the output name is &ldquo;Sigmoid:0&rdquo;. The image size is 224 * 224. the output size is the same.</p>
+
+<pre><code class="language-java">package com.Qian.HairDye;
+
+import ai.fritz.vision.imagesegmentation.MaskType;
+import ai.fritz.vision.imagesegmentation.SegmentOnDeviceModel;
+
+public class Train_170CustomModel extends SegmentOnDeviceModel {
+
+    private static final String MODEL_PATH = &quot;file:///android_asset/converted_model_hairnet.tflite&quot;;
+    private static final String MODEL_ID = &quot;9c021ee48c3c4d668b1f8a1a01198a71&quot;;
+    private static final int MODEL_VERSION = 1;
+    private static MaskType[] hair = { MaskType.HAIR };
+
+    public Train_170CustomModel() {
+        super(MODEL_PATH, MODEL_ID, MODEL_VERSION, hair, &quot;input:0&quot;, 224, &quot;Sigmoid:0&quot;, 224);
+    }
+}
+</code></pre>
+
+<h2 id="set-up-a-predictor-using-own-model">Set up a predictor using own model</h2>
+
+<p>in setupPredictor() method in MainActivity class</p>
+
+<pre><code class="language-java">SegmentOnDeviceModel onDeviceModel = new Train_170CustomModel();
+predictor = FritzVision.ImageSegmentation.getPredictor(onDeviceModel);
+
+</code></pre>
+
+<p>In this two lines code, we first initialize a new model and then call the <code>getPredictor</code> function to get a predictor class. the <code>getPredictor</code> function looks like this.</p>
+
+<pre><code class="language-java">public FritzVisionSegmentPredictor getPredictor (SegmentOnDeviceModel onDeviceModel, FritzVisionSegmentPredictorOptions options)
+</code></pre>
+
+<p>so we will get a <code>FritzVisionSegmentPredictor</code> object. The input parameter is our model object.</p>
+
+<p>The next question is what does this  <code>FritzVisionSegmentPredictor</code> class(the <code>predict</code>) do? I look at the class definition:</p>
+
+<pre><code class="language-java">package ai.fritz.vision.imagesegmentation;
+
+/**
+ * The predictor for image segmentation models.
+ */
+public class FritzVisionSegmentPredictor extends FritzVisionSegmentTFLPredictor {
+
+    public FritzVisionSegmentPredictor(SegmentOnDeviceModel segmentOnDeviceModel, FritzVisionSegmentPredictorOptions options) {
+        super(segmentOnDeviceModel, options);
+    }
+}
+
+</code></pre>
+
+<p>It extends from <code>FritzVisionSegmentTFLPredictor</code>, so go one step to look at this class.</p>
+
+<pre><code class="language-java">package ai.fritz.vision.imagesegmentation;
+
+import android.graphics.Bitmap;
+import android.util.Log;
+import android.util.Size;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.List;
+
+import ai.fritz.core.constants.ModelEventName;
+import ai.fritz.core.utils.EventTracker;
+import ai.fritz.vision.FritzVisionImage;
+import ai.fritz.vision.base.FritzVisionTFLitePredictor;
+import ai.fritz.vision.base.PreparedImage;
+
+/**
+ * The predictor class for image segmentation with the TFL backend.
+ *
+ * @deprecated Please use {@link FritzVisionSegmentPredictor}. This class will be removed in the next major version update.
+ */
+public class FritzVisionSegmentTFLPredictor extends FritzVisionTFLitePredictor&lt;FritzVisionSegmentResult&gt; {
+
+    private static final String TAG = FritzVisionSegmentTFLPredictor.class.getSimpleName();
+
+    private static final int NUM_CHANNELS = 3;
+
+    private int inputSize;
+    private int outputSize;
+
+    private int[] intValues;
+    private MaskType[] segmentClassifications;
+    private FritzVisionSegmentPredictorOptions options;
+
+    private ByteBuffer inputByteBuffer;
+    private ByteBuffer outputByteBuffer;
+
+    public FritzVisionSegmentTFLPredictor(SegmentOnDeviceModel segmentOnDeviceModel, FritzVisionSegmentPredictorOptions options) {
+        super(segmentOnDeviceModel);
+        initializeValues(segmentOnDeviceModel, options);
+    }
+
+    private void initializeValues(SegmentOnDeviceModel segmentOnDeviceModel, FritzVisionSegmentPredictorOptions options) {
+        this.inputSize = segmentOnDeviceModel.getInputSize();
+        this.outputSize = segmentOnDeviceModel.getOutputSize();
+        interpreter.setNumThreads(options.getNumThreads());
+        this.segmentClassifications = setTargetClassifications(segmentOnDeviceModel.getClassifications(), options.getTargetSegments());
+
+        inputByteBuffer = ByteBuffer.allocateDirect(4 * inputSize * inputSize * NUM_CHANNELS);
+        inputByteBuffer.order(ByteOrder.nativeOrder());
+
+        outputByteBuffer = ByteBuffer.allocateDirect(4 * outputSize * outputSize * segmentClassifications.length);
+        outputByteBuffer.order(ByteOrder.nativeOrder());
+
+        this.intValues = new int[inputSize * inputSize];
+        this.options = options;
+    }
+
+    public void setOptions(FritzVisionSegmentPredictorOptions options) {
+        this.options = options;
+        this.segmentClassifications = setTargetClassifications(this.segmentClassifications, options.getTargetSegments());
+        interpreter.setNumThreads(options.getNumThreads());
+    }
+
+    /**
+     * Identify and create pixel-level masks for all items in visionImage.
+     *
+     * @param visionImage
+     * @return FritzVisionSegmentResult
+     */
+    @Override
+    public FritzVisionSegmentResult predict(FritzVisionImage visionImage) {
+        long start = System.nanoTime();
+        Size modelInputSize = new Size(inputSize, inputSize);
+        PreparedImage preparedImage = PreparedImage.create(visionImage, options.getCropAndScaleOption(), modelInputSize);
+
+        preprocess(preparedImage.getBitmapForModel());
+        long preprocessTiming = System.nanoTime() - start;
+        EventTracker.getInstance().trackCustomTiming(ModelEventName.MODEL_PREPROCESS, onDeviceModel, preprocessTiming);
+
+        outputByteBuffer.rewind();
+        start = System.nanoTime();
+        interpreter.run(inputByteBuffer, outputByteBuffer);
+        Log.d(TAG, &quot;model inference took &quot; + Math.floor((System.nanoTime() - start) / 1e6) + &quot;ms to run.&quot;);
+
+        start = System.nanoTime();
+        FritzVisionSegmentResult result = postprocess(visionImage, preparedImage);
+        long postprocessTiming = System.nanoTime() - start;
+        EventTracker.getInstance().trackCustomTiming(ModelEventName.MODEL_POSTPROCESS, onDeviceModel, postprocessTiming);
+
+        return result;
+    }
+
+    private MaskType[] setTargetClassifications(MaskType[] classifications, List&lt;MaskType&gt; targetSegments) {
+        // if no target segments set, then use the default
+        if (targetSegments == null) {
+            return classifications;
+        }
+
+        // Filter out the classes outside of the target segments
+        for (int i = 0; i &lt; classifications.length; i++) {
+            MaskType maskType = classifications[i];
+            if (!targetSegments.contains(maskType)) {
+                classifications[i] = MaskType.NONE;
+            }
+        }
+
+        return classifications;
+    }
+
+    private void preprocess(Bitmap bitmap) {
+        bitmap.getPixels(intValues, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
+        inputByteBuffer.rewind();
+        for (int row = 0; row &lt; inputSize; row++) {
+            for (int col = 0; col &lt; inputSize; col++) {
+                int pixel = intValues[row * inputSize + col];
+
+                float blue = (float) (pixel &amp; 0xFF) / 255f - 0.5f;
+                float green = (float) ((pixel &gt;&gt; 8) &amp; 0xFF) / 255f - 0.5f;
+                float red = (float) ((pixel &gt;&gt; 16) &amp; 0xFF) / 255f - 0.5f;
+
+                inputByteBuffer.putFloat(red);
+                inputByteBuffer.putFloat(green);
+                inputByteBuffer.putFloat(blue);
+            }
+        }
+    }
+
+    private FritzVisionSegmentResult postprocess(FritzVisionImage visionImage, PreparedImage preparedImage) {
+        int[][] classifications = new int[outputSize][outputSize];
+        float[][] confidence = new float[outputSize][outputSize];
+
+        for (int row = 0; row &lt; outputSize; row++) {
+            int rowOffset = row * outputSize * segmentClassifications.length;
+
+            for (int col = 0; col &lt; outputSize; col++) {
+                int maxClassProbIndex = 0;
+                float maxClassProbValue = 0;
+
+                int colOffset = col * segmentClassifications.length;
+                int offset = rowOffset + colOffset;
+
+                for (int classIndex = 0; classIndex &lt; segmentClassifications.length; classIndex++) {
+                    float classProb = outputByteBuffer.getFloat((offset + classIndex) * 4);
+
+                    // Arg max
+                    if (classProb &gt; maxClassProbValue) {
+                        maxClassProbIndex = classIndex;
+                        maxClassProbValue = classProb;
+                    }
+                }
+
+                classifications[row][col] = maxClassProbIndex;
+                confidence[row][col] = maxClassProbValue;
+            }
+        }
+
+        return new FritzVisionSegmentResult(
+                visionImage, preparedImage,
+                options, segmentClassifications,
+                preparedImage.getTargetInferenceSize(),
+                new Size(outputSize, outputSize),
+                preparedImage.getOffsetX(),
+                preparedImage.getOffsetY(),
+                classifications, confidence);
+    }
+}
+</code></pre>
+
+<p>Now I just concentrate on the constructor which is <code>initializeValues</code> function.</p>
+
+<pre><code class="language-java">private void initializeValues(SegmentOnDeviceModel segmentOnDeviceModel, FritzVisionSegmentPredictorOptions options) {
+        this.inputSize = segmentOnDeviceModel.getInputSize();
+        this.outputSize = segmentOnDeviceModel.getOutputSize();
+        interpreter.setNumThreads(options.getNumThreads());
+        this.segmentClassifications = setTargetClassifications(segmentOnDeviceModel.getClassifications(), options.getTargetSegments());
+
+        inputByteBuffer = ByteBuffer.allocateDirect(4 * inputSize * inputSize * NUM_CHANNELS);
+        inputByteBuffer.order(ByteOrder.nativeOrder());
+
+        outputByteBuffer = ByteBuffer.allocateDirect(4 * outputSize * outputSize * segmentClassifications.length);
+        outputByteBuffer.order(ByteOrder.nativeOrder());
+
+        this.intValues = new int[inputSize * inputSize];
+        this.options = options;
+    }
+</code></pre>
+
+<p>We can see it just assign the necessary information about the model. The <code>segmentClassifications</code> is a <code>MaskType[]</code> variable which tells the predictor what type of segmentation you want. In my project it is just <code>MaskType.HAIR</code>  and is given by my defined class  <code>Train_170CustomModel</code>. The default batch size is 4 and the input image has same height and width.</p>
+
+<blockquote>
+<p>The rest part is pretty much the same like the fritz <a href="https://heartbeat.fritz.ai/embrace-your-new-look-with-hair-segmentation-by-fritz-now-available-for-android-developers-f20f5b4e9ae1">tutorial</a>, for completeness I just list them below and add some notes.</p>
+</blockquote>
+
+<h1 id="choose-a-hair-color-for-prediction">Choose a hair color for prediction</h1>
+
+<p>So our model will predict a hair mask, and use the hair mask overlay to blend the color with the original image. Now it will color the hair to BLUE.</p>
+
+<pre><code class="language-java">MaskType.HAIR.color = Color.BLUE;
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>java.lang.Object</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>↳</td>
+<td>ai.fritz.vision.imagesegmentation.MaskType</td>
+</tr>
+</tbody>
+</table>
+
+<p><code>MaskType</code> tells what kind of mask we want to use. It includes several types of masks such as BED, HAIR, FLOOR, PERSON. Also it has a public method <code>setColor(int color)</code> which set the color you&rsquo;d like for this mask type.</p>
+
+<h1 id="run-prediction-on-an-image-to-detect-hair">Run prediction on an image to detect hair</h1>
+
+<p>Images can come from a camera, a photo roll, or live video. In this project I catch the images from the camera.</p>
+
+<p>In the code below, we convert an <code>android.media.Image</code> object (<code>YUV_420_888</code>format<em>)</em> into a <code>FritzVisionImage</code> object to prepare it for prediction. This is usually the case when reading from a live camera capture session.</p>
+
+<pre><code class="language-java">// Determine how to rotate the image from the camera used.
+int rotation = FritzVisionOrientation.getImageRotationFromCamera(this, cameraId);
+
+// Create a FritzVisionImage object from android.media.Image
+FritzVisionImage visionImage = FritzVisionImage.fromMediaImage(image, rotation);
+</code></pre>
+
+<p>We may also convert a <code>Bitmap</code> to a <code>FritzVisionImage</code></p>
+
+<pre><code>FritzVisionImage visionImage = FritzVisionImage.fromBitmap(bitmap);
+</code></pre>
+
+<p>After you’ve create a <code>FritzVisionImage</code> object, call <code>predictor.predict</code>.</p>
+
+<pre><code class="language-java">// Run the image through the model to identify pixels representing hair.
+FritzVisionSegmentResult segmentResult = predictor.predict(visionImage);
+</code></pre>
+
+<p>This will return a <code>segmentResult</code> that you can use to display the hair mask.</p>
+
+<p>We can look at the <code>FritzVisionSegmentTFLPredictor</code> to see what happened when calling the predict function:</p>
+
+<pre><code class="language-java">public FritzVisionSegmentResult predict(FritzVisionImage visionImage) {
+        long start = System.nanoTime();
+        Size modelInputSize = new Size(inputSize, inputSize);
+        PreparedImage preparedImage = PreparedImage.create(visionImage, options.getCropAndScaleOption(), modelInputSize);
+
+        preprocess(preparedImage.getBitmapForModel());
+        long preprocessTiming = System.nanoTime() - start;
+        EventTracker.getInstance().trackCustomTiming(ModelEventName.MODEL_PREPROCESS, onDeviceModel, preprocessTiming);
+
+        outputByteBuffer.rewind();
+        start = System.nanoTime();
+        interpreter.run(inputByteBuffer, outputByteBuffer);
+        Log.d(TAG, &quot;model inference took &quot; + Math.floor((System.nanoTime() - start) / 1e6) + &quot;ms to run.&quot;);
+
+        start = System.nanoTime();
+        FritzVisionSegmentResult result = postprocess(visionImage, preparedImage);
+        long postprocessTiming = System.nanoTime() - start;
+        EventTracker.getInstance().trackCustomTiming(ModelEventName.MODEL_POSTPROCESS, onDeviceModel, postprocessTiming);
+
+        return result;
+    }
+</code></pre>
+
+<p>Basically, it does three things, preprocessing, interpreter.run and post processing. The core thing is <code>interpreter.run</code>.</p>
+
+<p>First, the <code>interpreter</code> is defined in</p>
+
+<pre><code class="language-java">package ai.fritz.vision.base;
+
+import org.tensorflow.lite.Interpreter;
+
+import ai.fritz.core.FritzOnDeviceModel;
+import ai.fritz.customtflite.FritzTFLiteInterpreter;
+import ai.fritz.vision.FritzVisionImage;
+
+/**
+ * TFL Predictor
+ * @hide
+ */
+public abstract class FritzVisionTFLitePredictor&lt;T&gt; extends FritzVisionPredictorBase {
+
+
+    protected FritzOnDeviceModel onDeviceModel;
+    protected FritzTFLiteInterpreter interpreter;
+
+
+    public FritzVisionTFLitePredictor(FritzOnDeviceModel onDeviceModel) {
+        this(onDeviceModel, new Interpreter.Options());
+    }
+
+    public FritzVisionTFLitePredictor(FritzOnDeviceModel onDeviceModel, Interpreter.Options interpreterOptions) {
+        this.onDeviceModel = onDeviceModel;
+        this.interpreter = new FritzTFLiteInterpreter(onDeviceModel, interpreterOptions);
+    }
+
+    public void close() {
+        this.interpreter.close();
+    }
+}
+</code></pre>
+
+<p>As the code shows, <code>interpreter</code> is an <code>ai.fritz.customtflite.FritzTFLiteInterpreter</code> class which is defined by ourself. We pass our model through <code>onDeviceModel</code> and get an interpreter instance.</p>
+
+<p>Then we call the <code>interpreter.run</code> function to get the prediction. We look into the <code>ai.fritz.customtflite.FritzTFLiteInterpreter</code> class and see the <code>run</code> function</p>
+
+<pre><code class="language-java">/**
+     * Run model inference on the input and output methods.
+     * &lt;p&gt;
+     * The interpreter will record metrics on model execution.
+     */
+    public void run(Object input, Object output) {
+        modelDownloadManager.checkForNewActiveVersion();
+        this.interpreter.run(input, output);
+        trackInferenceTime();
+    }
+</code></pre>
+
+<p>We can see it calls the <code>this.interpreter.run</code> function. So where is the interpreter? we can see in the <code>FritzTFLiteInterpreter</code> class, the interpreter is just a tensorflow lite Interpreter class. So that&rsquo;s it. Fritz framework finally calls the tensorflow lite <code>interpreter.run</code> function to run the model and get the prediction.</p>
+
+<pre><code class="language-java">org.tensorflow.lite.Interpreter;
+private Interpreter interpreter;
+</code></pre>
+
+<h1 id="blend-the-mask-onto-the-original-image">Blend the mask onto the original image</h1>
+
+<p>Now that we have the result from the model, let’s extract the mask and blend it with the pixels on the original image.</p>
+
+<p>First, pick one of 3 different blend modes:</p>
+
+<pre><code class="language-java">// Soft Light Blend
+BlendMode blendMode = BlendModeType.SOFT_LIGHT.create();
+
+// Color Blend
+BlendMode blendMode = BlendModeType.COLOR.create();
+
+// Hue Blend
+BlendMode blendMode = BlendModeType.HUE.create();
+</code></pre>
+
+<p>I choose HUE blend model.</p>
+
+<p>Next, extract the mask for which we detected hair in the image. The Segmentation Predictor has a method called <code>createMaskOverlayBitmap</code> that returns a colored<code>Bitmap</code> of the classified pixels. In this case, red indicates detected hair.</p>
+
+<pre><code class="language-java">Create a bitmap of the overlay to apply to an image.
+* This will have the model output dimensions.
+* &lt;p&gt;
+* Default alpha value is 60.
+*
+* @return a bitmap of the overlay
+public Bitmap createMaskOverlayBitmap() {
+        return buildMultiClassMask();
+    }
+</code></pre>
+
+<pre><code class="language-java">Bitmap maskBitmap = segmentResult.createMaskOverlayBitmap(blendMode.getAlpha());
+</code></pre>
+
+<p>Finally, let’s blend <code>maskBitmap</code> with the original image.</p>
+
+<pre><code class="language-java">// Get the original image.
+FritzVisionImage visionImage = segmentResult.getOriginalImage();
+
+// Blend the original image with the mask and the blend mode.
+Bitmap blendedBitmap = visionImage.blend(maskBitmap, blendMode);
+</code></pre>
+
+<h1 id="track-the-performance-of-your-model">Track the performance of your model</h1>
+
+<p><img src="https://quq99.github.io/images/blog/series/my_machine_learning_journey/2019-08/modelinfo.png" alt="info" /></p>
+
+          </div>
+
+          
+          <div class="row">
+            <div class="col-md-8">
+            
+              <div class="mb-5">
+                
+<div class="li-x div-x post-meta">
+  <li class="pr-0"><a href="https://quq99.github.io/tags/"><i class="fas fa-tags"></i></a></li>
+  <div class="tags-sm">
+    
+      <li><a href="https://quq99.github.io/tags/machine_learning" role="button">machine_learning </a></li>
+      
+    
+      <li><a href="https://quq99.github.io/tags/blog" role="button">blog </a></li>
+      
+    
+      <li><a href="https://quq99.github.io/tags/android" role="button">android </a></li>
+      
+    
+      <li><a href="https://quq99.github.io/tags/tensorflow" role="button">tensorflow </a></li>
+      
+    
+  </div>
+</div>
+              </div>
+            
+            </div>
+            
+          </div>
+          
+
+          
+          <div class="row pt-3">
+            <div class="col-md-6">
+              
+                <a href=https://quq99.github.io/blog/2019-08/onnx-convert-trained-pytorch-model-to-tensorflow-model/ class="post-meta">Previous
+                  <div class="pt-2 pb-5 d-flex">
+                    <i class="fas fa-angle-left text-grey font-weight-bold mr-2 active-color"></i>
+                    <span>ONNX : convert trained pytorch model to tensorflow model</span>
+                  </div>
+                </a>
+              
+            </div>
+            
+            <div class="col-md-6 text-right" >
+              
+            </div>
+          </div>
+
+          
+
+        </div>
+        
+
+      </div>
+      
+
+      
+	
+	
+	
+	
+		
+		
+		
+	
+
+		
+		<div class="col-md-2 pl-0">
+
+			
+			<div id="page-scrollspy" class="toc-nav">
+				
+				<ul class="nav nav-pills ml-0">
+					
+					<li class="nav-item pb-3 text-center">
+						<span class="font-weight-bold mb-2">- CATALOG - </span>
+					</li>
+
+					
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#fritz-androide-sdk">
+												 Fritz Androide SDK
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#set-up-fritz-account-and-initialize-the-sdk">
+												 Set up Fritz account and initialize the SDK
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#register-your-app">
+												 Register your app
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#add-the-fritz-sdk">
+												 Add the Fritz SDK
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#edit-your-androidmanifest-xml">
+												 Edit your AndroidManifest.xml
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#initialize-fritz">
+												 Initialize Fritz
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#add-the-hairnet-model">
+												 Add the HairNet model
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#upload-the-tensorflow-lite-model">
+												 Upload the tensorflow lite model
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#add-fritz-s-tflite-library">
+												 Add Fritz’s TFLite Library
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#no-compress-model-when-build-the-apk">
+												 No compress model when build the apk
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#create-a-segmentation-predictor-with-a-hair-segmentation-model">
+												 Create a Segmentation Predictor with a Hair Segmentation model
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#create-model-class">
+												 Create model class
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#set-up-a-predictor-using-own-model">
+												 Set up a predictor using own model
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#choose-a-hair-color-for-prediction">
+												 Choose a hair color for prediction
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#run-prediction-on-an-image-to-detect-hair">
+												 Run prediction on an image to detect hair
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#blend-the-mask-onto-the-original-image">
+												 Blend the mask onto the original image
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+						
+						
+							
+								
+								
+									<ul class="nav">
+								
+								
+
+										<li class="nav-item">
+						 					<a class="nav-link" href="#track-the-performance-of-your-model">
+												 Track the performance of your model
+											</a>
+										</li>
+						 
+								
+								
+									</ul>
+								
+							
+						
+				 
+
+				</ul>
+			</div>
+			
+
+		</div>
+		
+	
+
+    </div>
+    
+
+
+  </main>
+  
+
+
+    
+    
+
+<footer class="page-footer text-center font-small mt-4 wow fadeIn">
+
+
+  
+  <div class="pb-2 mt-5 pt-5">
+    
+      <a href="//github.com/quq99 " target="_blank" rel="noopener"><i class="fab fa-github mr-3" aria-hidden="true"></i></a>    
+    
+    
+      <a href="//linkedin.com/in/qian-qu-2608b2170" target="_blank" rel="noopener"><i class="fab fa-linkedin-in mr-3" aria-hidden="true"></i></a>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        <a href="mailto:qq8jn@virginia.edu"><i class="far fa-envelope-open mr-3" aria-hidden="true"></i></a>
+    
+
+    
+
+    
+
+  </div>
+  
+
+  
+  <div class="copyright py-4">
+    
+    <span>  2016 - 2019 &copy; | Theme <a href='https://github.com/orianna-zzo/AllinOne' target="_blank">AllinOne</a> by <a href='https://github.com/orianna-zzo' target="_blank">Orianna</a>  </span>
+  </div>
+  
+
+</footer>
+
+
+    
+
+
+
+
+
+
+<script type="text/javascript" src="https://quq99.github.io/js/vendors/jquery/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://quq99.github.io/js/vendors/jquery/jquery.smooth-scroll.min.js"></script>
+
+
+
+<script type="text/javascript" src="https://quq99.github.io/js/vendors/popper.min.js"></script>
+<script type="text/javascript" src="https://quq99.github.io/js/vendors/holder.min.js"></script>
+<script type="text/javascript" src="https://quq99.github.io/js/vendors-extensions/bootstrap4/bootstrap.js" ></script>
+
+<script type="text/javascript" src="https://quq99.github.io/js/vendors/mdb/mdb.min.js"></script>
+
+<script type="text/javascript" src="https://quq99.github.io/js/main.js"></script>
+
+
+
+  
+  <script src="https://quq99.github.io/js/vendors/highlight.pack.js"> </script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+ 
+  <script src="https://quq99.github.io/js/vendors/katex/katex.min.js"> </script>
+  <script src="https://quq99.github.io/js/vendors/katex/contrib/auto-render.min.js"></script>
+
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          renderMathInElement(document.body);
+      });
+  </script>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+  
+  new WOW().init();
+</script>
+
+
+
+
+  </body>
+</html>

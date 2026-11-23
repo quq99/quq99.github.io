@@ -125,10 +125,11 @@
     align-items: baseline;
   }
   @media (min-width: 48rem) {
-    .row { grid-template-columns: 9.5rem minmax(0, 40rem); }
+    .row { grid-template-columns: 10.5rem minmax(0, 40rem); }
   }
   .label {
     font-size: var(--text-sm);
+    white-space: nowrap;
     line-height: var(--text-base--line-height);
     color: var(--muted);
     letter-spacing: -0.008em;

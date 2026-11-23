@@ -1,0 +1,124 @@
+---
+import Base from "../layouts/Base.astro";
+import { person, cv, publications } from "../data/profile";
+
+const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
+---
+
+<Base title="CV" description={`CV of ${person.name}, ${person.role}.`}>
+  <section class="shell pt-16 sm:pt-24 md:pt-32" aria-labelledby="title">
+    <div class="row">
+      <div aria-hidden="true"></div>
+      <div>
+        <h1 id="title" class="text-[2.25rem] leading-[1.08] font-semibold tracking-[-0.03em] sm:text-[3rem]">CV</h1>
+        <p class="mt-4 max-w-[34rem] text-lg text-ink-2 tracking-[-0.016em]">
+          {cv.role.title} at Amazon since 2020: LLM agents, GPU kernels, PyTorch on Trainium, and the data and
+          serving systems behind large language models.
+        </p>
+        <ul class="mt-7 flex flex-wrap gap-x-6 gap-y-2">
+          <li><a href={cv.pdf} download>Download PDF</a></li>
+          <li><a href={`mailto:${person.email}`}>{person.email}</a></li>
+        </ul>
+        <p class="mt-3 text-xs text-muted">Updated {cv.updated}.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="shell mt-24 sm:mt-28" aria-labelledby="exp">
+    <div class="row">
+      <h2 id="exp" class="section-title">Experience</h2>
+      <p>
+        <span class="font-semibold">{cv.role.title}</span>
+        <span class="text-ink-2">, {cv.role.org}</span>
+        <span class="text-muted num">, {cv.role.years}</span>
+      </p>
+    </div>
+    <ol class="mt-10 space-y-12">
+      {
+        cv.teams.map((t) => (
+          <li class="row">
+            <p class="label num">{t.years}</p>
+            <div>
+              <h3 class="font-semibold">{t.team}</h3>
+              {t.note && <p class="mt-1 text-ink-2">{t.note}</p>}
+              <ul class="mt-3 space-y-3">
+                {t.points.map(([lead, text]) => (
+                  <li class="text-ink-2">
+                    <span class="font-medium text-ink">{lead}.</span> {text}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <!-- Papers -->
+  <section class="shell mt-24 sm:mt-28" aria-labelledby="pubs">
+    <div class="row">
+      <h2 id="pubs" class="section-title">Papers</h2>
+      <div aria-hidden="true"></div>
+    </div>
+    <ul class="mt-4 space-y-6">
+      {
+        publications.map((p) => (
+          <li class="row">
+            <p class="label num">{p.firstAuthor ? "First author" : "Co-author"}</p>
+            <div>
+              <h3 class="font-semibold">
+                <a href={p.href} class="text-ink hover:text-link">{p.title}</a>
+              </h3>
+              <p class="mt-1 text-sm text-muted">
+                {authorParts(p.authors).map((part) => (part === "Qian Qu" ? <span class="text-ink">{part}</span> : part))}
+              </p>
+              <p class="text-sm text-muted num">{p.venue}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- Education -->
+  <section class="shell mt-24 sm:mt-28" aria-labelledby="edu">
+    <div class="row">
+      <h2 id="edu" class="section-title">Education</h2>
+      <div aria-hidden="true"></div>
+    </div>
+    <ul class="mt-4 space-y-5">
+      {
+        cv.education.map((e) => (
+          <li class="row">
+            <p class="label num">{e.years}</p>
+            <div>
+              <h3 class="font-semibold">{e.school}</h3>
+              <p class="text-ink-2">{e.degree}</p>
+              <p class="text-sm text-muted num">{e.detail}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- Skills -->
+  <section class="shell mt-24 mb-28 sm:mt-28 sm:mb-36" aria-labelledby="skills">
+    <div class="row">
+      <h2 id="skills" class="section-title">Skills</h2>
+      <div aria-hidden="true"></div>
+    </div>
+    <dl class="mt-4 space-y-3">
+      {
+        cv.skills.map(([k, v]) => (
+          <div class="row">
+            <dt class="label">{k}</dt>
+            <dd class="text-ink-2">{v}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+</Base>

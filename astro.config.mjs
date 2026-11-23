@@ -16,7 +16,7 @@ export default defineConfig({
   // Pages of the 2019 site that no longer exist on their own.
   redirects: {
     "/about/": "/",
-    "/resume/": "/#experience",
+    "/resume/": "/cv/",
     "/blog/2019-06/mapping-keys-in-vim/": "/blog/2019-05/mapping-keys-in-vim/",
     "/series/": "/blog/",
     "/tags/": "/blog/",

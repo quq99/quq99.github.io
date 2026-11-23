@@ -98,3 +98,61 @@ export const education = [
   { years: "2018", school: "Nanjing University", degree: "M.S. in Electronic and Communication Engineering" },
   { years: "2015", school: "Nanjing University", degree: "B.S. in Electronic Information Science and Technology" },
 ];
+
+// The CV page: the same facts as the resume PDF (public/cv/Qian_Qu_Resume.pdf, the phone-free copy
+// made by `make web` in the resume repo), with room to read.
+export const cv = {
+  pdf: "/cv/Qian_Qu_Resume.pdf",
+  updated: "November 2026",
+  role: { title: "Machine Learning Engineer", org: "Amazon, Seattle", years: "2020 – now" },
+  teams: [
+    {
+      team: "Ads Foundation Model",
+      years: "Sep 2026 – now",
+      note: "",
+      points: [
+        ["CompoundingKernel", "Conceived, designed and built a self-improving LLM agent system that writes and tunes CUDA kernels for NVIDIA B200, starting from PyTorch with no reference kernels. First author of the paper (arXiv 2611.19230)."],
+        ["Leaderboards", "First on the L1, L2 and Quantization boards of NVIDIA SOL-ExecBench as of November 11, 2026; correct kernels for all 235 problems, 4.40× faster than the PyTorch baseline on the 209 public ones."],
+        ["Search design", "A per-problem archive of every correct kernel and its lineage, an LLM controller that picks a parent or a new design for parallel child agents, and correctness checks outside the model."],
+        ["Scale", "More than 1,000 agent sessions at once; one warm restart raised evaluated candidates per hour 3.6×. At equal wall time, the controller beat a UCB-style tree search on 35 of 38 problems."],
+      ],
+    },
+    {
+      team: "Annapurna Labs",
+      years: "Dec 2025 – Sep 2026",
+      note: "",
+      points: [
+        ["TorchNeuron", "Core team member enabling native PyTorch on AWS Trainium (torch-neuronx), open-sourced under Apache 2.0 at the PyTorch Conference in October 2026. PyTorch code runs on Trainium with a one-line change."],
+        ["Training and operators", "LLM training and evaluation and distributed training on Trainium, and PyTorch ATen operators with torch-mlir. The team validated the 100,000 most popular models and more than 800 ML architectures."],
+      ],
+    },
+    {
+      team: "Amazon Rufus",
+      years: "Apr 2023 – Dec 2025",
+      note: "Early member of the foundation model and data team behind the shopping assistant used by millions of customers on the Amazon app.",
+      points: [
+        ["Pre-training data", "Led and launched a refreshable pipeline processing trillions of tokens (AWS EMR Serverless, Airflow) that transforms, cleans, de-duplicates and PII-filters product catalog, reviews, community Q&A, A+ and OCR data; manual effort went from a week per dataset to almost none."],
+        ["Customer data", "Led and designed the system for model release gating, evaluation, traffic replay and RLHF, meeting privacy, security, governance and compliance requirements, and drove its integration across teams."],
+        ["Playground and serving", "Launched two FastChat environments for testing models and prompts, used for demos to the Amazon CEO; customized vLLM for 4× faster inference, more GPUs, longer conversations and no out-of-memory errors."],
+      ],
+    },
+    {
+      team: "Product catalog ML",
+      years: "Mar 2020 – Apr 2023",
+      note: "",
+      points: [
+        ["Brand classification", "An ML service at 2,000 requests per second across 12 marketplaces; raised UK recall from 57% to 72% at 95% precision."],
+      ],
+    },
+  ],
+  education: [
+    { years: "2018 – 2019", school: "University of Virginia", degree: "M.S. in Computer Science", detail: "GPA 3.9 / 4.0" },
+    { years: "2015 – 2018", school: "Nanjing University", degree: "M.S. in Electronic and Communication Engineering", detail: "GPA 4.38 / 5.0. First Prize of the Postgraduate Scholarship, 2015 and 2017." },
+    { years: "2011 – 2015", school: "Nanjing University", degree: "B.S. in Electronic Information Science and Technology", detail: "GPA 4.26 / 5.0, top 15%. Second Prize of the People's Scholarship, 2012." },
+  ],
+  skills: [
+    ["Languages", "Python, C/C++, CUDA, Triton, Java, Scala, SQL, TypeScript"],
+    ["AI and ML", "LLM agents, Claude Code, PyTorch, torch-mlir, AWS Trainium, distributed training, CUTLASS, vLLM"],
+    ["Data and tools", "PySpark, Pandas, Docker, Linux, AWS (Bedrock, SageMaker, EMR, Airflow, Lambda, S3, DynamoDB)"],
+  ],
+};

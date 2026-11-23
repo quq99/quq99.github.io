@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Film from "../components/Film.astro";
+import Logo from "../components/Logo.astro";
 import { person, featured, projects, publications, experience, education } from "../data/profile";
 
 const posts = (await getCollection("blog")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -9,6 +10,8 @@ const monthYear = (d: Date) => d.toLocaleDateString("en-US", { month: "short", y
 
 // Set my name in the author line in a stronger tone, so it is easy to find.
 const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
+const schoolLogo = (s: string) => (s.startsWith("Nanjing") ? "nju" : "uva");
+const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "aws" : "amazon");
 ---
 
 <Base notes={[`Film music: ${featured.film.credit.replace(/^Music: /, "")}`]}>
@@ -49,7 +52,11 @@ const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
         <div class="row mt-20 sm:mt-24">
           <p class="label num">{p.years}</p>
           <div>
-            <h2 class="text-xl font-semibold tracking-[-0.022em]">{p.title}</h2>
+            <h2 class="flex items-center gap-3 text-xl font-semibold tracking-[-0.022em]">
+              {p.title === "TorchNeuron" && <Logo name="pytorch" size="1.375rem" class="text-ink-2" />}
+              {p.title === "Amazon Rufus" && <Logo name="amazon" size="1.375rem" class="text-ink-2" />}
+              {p.title}
+            </h2>
             {p.code && (
               <pre class="code-card mt-4" aria-label="Example"><code><span>{p.code.line}</span>  <span class="code-note">{p.code.note}</span></code></pre>
             )}
@@ -75,7 +82,7 @@ const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
           <li class="row">
             <p class="label num">{e.years}</p>
             <div>
-              <h3 class="font-semibold">{e.team}</h3>
+              <h3 class="flex items-center gap-2.5 font-semibold"><Logo name={teamLogo(e.team)} size="1.125rem" class="text-ink-2" />{e.team}</h3>
               <p class="mt-1 text-ink-2">{e.text}</p>
             </div>
           </li>
@@ -122,7 +129,7 @@ const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
           <li class="row">
             <p class="label num">{e.years}</p>
             <p>
-              <span class="font-semibold">{e.school}</span>
+              <span class="flex items-center gap-2.5 font-semibold"><Logo name={schoolLogo(e.school)} size="1.25rem" class="text-ink-2" />{e.school}</span>
               <span class="block text-ink-2">{e.degree}</span>
             </p>
           </li>

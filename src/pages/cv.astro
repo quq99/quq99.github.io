@@ -1,8 +1,11 @@
 ---
 import Base from "../layouts/Base.astro";
+import Logo from "../components/Logo.astro";
 import { person, cv, publications } from "../data/profile";
 
 const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
+const schoolLogo = (s: string) => (s.startsWith("Nanjing") ? "nju" : "uva");
+const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "aws" : "amazon");
 ---
 
 <Base title="CV" description={`CV of ${person.name}, ${person.role}.`}>
@@ -40,7 +43,7 @@ const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
           <li class="row">
             <p class="label num">{t.years}</p>
             <div>
-              <h3 class="font-semibold">{t.team}</h3>
+              <h3 class="flex items-center gap-2.5 font-semibold"><Logo name={teamLogo(t.team)} size="1.125rem" class="text-ink-2" />{t.team}</h3>
               {t.note && <p class="mt-1 text-ink-2">{t.note}</p>}
               <ul class="mt-3 space-y-3">
                 {t.points.map(([lead, text]) => (
@@ -94,7 +97,7 @@ const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
           <li class="row">
             <p class="label num">{e.years}</p>
             <div>
-              <h3 class="font-semibold">{e.school}</h3>
+              <h3 class="flex items-center gap-2.5 font-semibold"><Logo name={schoolLogo(e.school)} size="1.25rem" class="text-ink-2" />{e.school}</h3>
               <p class="text-ink-2">{e.degree}</p>
               <p class="text-sm text-muted num">{e.detail}</p>
             </div>

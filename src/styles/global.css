@@ -173,6 +173,15 @@
   }
 }
 
+/* One-color logos (components/Logo.astro): the mark takes the color of the text around it. */
+.logo {
+  display: inline-block;
+  flex: none;
+  background-color: currentColor;
+  -webkit-mask: var(--logo) center / contain no-repeat;
+  mask: var(--logo) center / contain no-repeat;
+}
+
 /* Long-form text in posts. */
 @layer components {
   .prose {

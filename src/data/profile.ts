@@ -3,7 +3,7 @@
 export const person = {
   name: "Qian Qu",
   role: "Machine Learning Engineer at Amazon",
-  location: "Seattle",
+  location: "Palo Alto",
   intro:
     "I build LLM agents that write GPU kernels, and the training, data and serving systems behind large language models.",
   email: "eequq99@gmail.com",
@@ -104,7 +104,7 @@ export const education = [
 export const cv = {
   pdf: "/cv/Qian_Qu_Resume.pdf",
   updated: "November 2026",
-  role: { title: "Machine Learning Engineer", org: "Amazon, Seattle", years: "2020 – now" },
+  role: { title: "Machine Learning Engineer", org: "Amazon, Palo Alto", years: "2020 – now" },
   teams: [
     {
       team: "Ads Foundation Model",

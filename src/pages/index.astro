@@ -1,0 +1,134 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Film from "../components/Film.astro";
+import { person, featured, publications, experience, education } from "../data/profile";
+
+const posts = (await getCollection("blog")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const monthYear = (d: Date) => d.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
+
+// Set my name in the author line in a stronger tone, so it is easy to find.
+const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
+---
+
+<Base>
+  <!-- Who -->
+  <section class="shell pt-16 pb-20 sm:pt-24 md:pt-32 md:pb-28" aria-labelledby="name">
+    <div class="row">
+      <div aria-hidden="true"></div>
+      <div>
+        <h1 id="name" class="text-[2.875rem] leading-[1.04] font-semibold tracking-[-0.032em] sm:text-[4rem]">
+          {person.name}
+        </h1>
+        <p class="mt-5 max-w-[34rem] text-lg text-ink-2 tracking-[-0.016em] sm:mt-6">
+          {person.role} in {person.location}. {person.intro.replace(/^I /, "I\u00a0")}
+        </p>
+        <ul class="mt-7 flex flex-wrap gap-x-6 gap-y-2" aria-label="Links">
+          {person.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- The work -->
+  <section id="work" class="shell scroll-mt-8" aria-labelledby="featured">
+    <Film src={featured.film.src} poster={featured.film.poster} label={`${featured.title} film`} />
+    <div class="row mt-8 sm:mt-10">
+      <p class="label num">{featured.year}</p>
+      <div>
+        <h2 id="featured" class="text-xl font-semibold tracking-[-0.022em]">{featured.title}</h2>
+        {featured.text.map((t, i) => <p class:list={["text-ink-2", i === 0 ? "mt-3" : "mt-4"]}>{t}</p>)}
+        <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+          {featured.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+        <p class="mt-6 text-xs text-muted">{featured.film.credit}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="shell mt-24 scroll-mt-8 sm:mt-32" aria-labelledby="experience-title">
+    <div class="row">
+      <h2 id="experience-title" class="section-title">Experience</h2>
+      <p class="text-ink-2">Machine Learning Engineer at Amazon since 2020.</p>
+    </div>
+    <ol class="mt-8 space-y-7">
+      {
+        experience.map((e) => (
+          <li class="row">
+            <p class="label num">{e.years}</p>
+            <div>
+              <h3 class="font-semibold">{e.team}</h3>
+              <p class="mt-1 text-ink-2">{e.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <!-- Papers -->
+  <section id="papers" class="shell mt-24 scroll-mt-8 sm:mt-32" aria-labelledby="papers-title">
+    <div class="row">
+      <h2 id="papers-title" class="section-title">Papers</h2>
+      <div aria-hidden="true"></div>
+    </div>
+    <ul class="mt-4 space-y-7">
+      {
+        publications.map((p) => (
+          <li class="row">
+            <p class="label num">{p.firstAuthor ? "First author" : "Co-author"}</p>
+            <div>
+              <h3 class="font-semibold">
+                <a href={p.href} class="text-ink hover:text-link">{p.title}</a>
+              </h3>
+              <p class="mt-1 text-sm text-muted">
+                {authorParts(p.authors).map((part) => (part === "Qian Qu" ? <span class="text-ink">{part}</span> : part))}
+              </p>
+              <p class="text-sm text-muted num">{p.venue}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="shell mt-24 scroll-mt-8 sm:mt-32" aria-labelledby="education-title">
+    <div class="row">
+      <h2 id="education-title" class="section-title">Education</h2>
+      <div aria-hidden="true"></div>
+    </div>
+    <ul class="mt-4 space-y-4">
+      {
+        education.map((e) => (
+          <li class="row">
+            <p class="label num">{e.years}</p>
+            <p>
+              <span class="font-semibold">{e.school}</span>
+              <span class="block text-ink-2">{e.degree}</span>
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- Writing -->
+  <section id="writing" class="shell mt-24 mb-28 scroll-mt-8 sm:mt-32 sm:mb-36" aria-labelledby="writing-title">
+    <div class="row">
+      <h2 id="writing-title" class="section-title">Writing</h2>
+      <p class="text-ink-2">Notes from 2019 on Vim, C++ and putting models on phones, kept as an archive.</p>
+    </div>
+    <ul class="mt-6 space-y-3">
+      {
+        posts.map((post) => (
+          <li class="row">
+            <p class="label num">{monthYear(post.data.date)}</p>
+            <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>

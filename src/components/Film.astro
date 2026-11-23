@@ -1,0 +1,73 @@
+---
+// A film that loads nothing until asked: poster first, the video only after a click.
+interface Props {
+  src: string;
+  poster: string;
+  label: string;
+}
+const { src, poster, label } = Astro.props;
+---
+
+<div class="film relative aspect-video overflow-hidden rounded-[18px] bg-surface" data-film>
+  <video
+    class="absolute inset-0 h-full w-full object-cover"
+    src={src}
+    poster={poster}
+    preload="none"
+    playsinline
+    aria-label={label}
+  ></video>
+  <button
+    type="button"
+    class="film-play absolute inset-0 grid place-items-center"
+    aria-label={`Play ${label}`}
+  >
+    <span class="film-disc grid size-16 place-items-center rounded-full sm:size-[4.5rem]">
+      <svg viewBox="0 0 24 24" class="ml-[3px] size-6 sm:size-7" aria-hidden="true"><path d="M8 5.6v12.8a.6.6 0 0 0 .9.5l10.2-6.4a.6.6 0 0 0 0-1L8.9 5.1a.6.6 0 0 0-.9.5Z" fill="currentColor"></path></svg>
+    </span>
+  </button>
+</div>
+
+<style>
+  .film-play {
+    cursor: pointer;
+    transition: opacity 0.25s ease;
+  }
+  .film-disc {
+    color: #1d1d1f;
+    background: rgb(255 255 255 / 0.78);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    backdrop-filter: blur(16px) saturate(180%);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.12), 0 6px 24px rgb(0 0 0 / 0.18);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+  .film-play:hover .film-disc {
+    transform: scale(1.06);
+    background: rgb(255 255 255 / 0.92);
+  }
+  .film-play:active .film-disc {
+    transform: scale(0.97);
+  }
+  .film-play:focus-visible {
+    outline-offset: -4px;
+    border-radius: 18px;
+  }
+  [data-playing] .film-play {
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  for (const box of document.querySelectorAll<HTMLElement>("[data-film]")) {
+    const video = box.querySelector("video")!;
+    const play = box.querySelector("button")!;
+    play.addEventListener("click", () => {
+      box.dataset.playing = "";
+      video.controls = true;
+      video.preload = "auto";
+      video.play().catch(() => {});
+      video.focus();
+    });
+  }
+</script>

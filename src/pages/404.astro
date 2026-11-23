@@ -1,0 +1,21 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Page not found">
+  <section class="shell pt-16 pb-36 sm:pt-24 md:pt-32" aria-labelledby="title">
+    <div class="row">
+      <div aria-hidden="true"></div>
+      <div>
+        <h1 id="title" class="text-[2.25rem] leading-[1.08] font-semibold tracking-[-0.03em] sm:text-[3rem]">Page not found</h1>
+        <p class="mt-4 max-w-[34rem] text-lg text-ink-2 tracking-[-0.016em]">
+          This address is not on the site. The site was rebuilt in 2026, so some old pages moved.
+        </p>
+        <ul class="mt-7 flex flex-wrap gap-x-6 gap-y-2">
+          <li><a href="/">Go to the home page</a></li>
+          <li><a href="/blog/">See all writing</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>

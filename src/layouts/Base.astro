@@ -1,0 +1,92 @@
+---
+import "../styles/global.css";
+import { person } from "../data/profile";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title,
+  description = `${person.name}: ${person.role}. ${person.intro}`,
+  image = "/media/compoundingkernel-poster.jpg",
+} = Astro.props;
+
+const pageTitle = title ? `${title} – ${person.name}` : person.name;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+const path = Astro.url.pathname;
+const nav = [
+  { label: "Work", href: "/#work" },
+  { label: "Papers", href: "/#papers" },
+  { label: "Writing", href: "/blog/" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${person.name}: writing`} href="/rss.xml" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body class="min-h-dvh flex flex-col">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-10 focus:rounded-lg focus:bg-paper focus:px-3 focus:py-2"
+      >Skip to content</a
+    >
+    <header class="shell">
+      <nav class="flex items-baseline justify-between py-6 text-sm" aria-label="Main">
+        <a href="/" class="font-semibold text-ink hover:text-ink hover:no-underline" aria-current={path === "/" ? "page" : undefined}
+          >{person.name}</a
+        >
+        <ul class="flex gap-6">
+          {
+            nav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={[
+                    "hover:no-underline",
+                    path.startsWith("/blog") && item.href === "/blog/" ? "text-ink" : "text-muted hover:text-ink",
+                  ]}
+                  aria-current={path.startsWith("/blog") && item.href === "/blog/" ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="shell">
+      <div class="row border-t border-hair py-8 text-xs text-muted">
+        <p class="num">© 2016–2026 {person.name}</p>
+        <p>
+          <a href={`mailto:${person.email}`}>{person.email}</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

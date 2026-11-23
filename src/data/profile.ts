@@ -8,6 +8,7 @@ export const person = {
     "I build LLM agents that write GPU kernels, and the training, data and serving systems behind large language models.",
   email: "eequq99@gmail.com",
   links: [
+    { label: "Google Scholar", href: "https://scholar.google.com/citations?user=M2odGwQAAAAJ&hl=en" },
     { label: "GitHub", href: "https://github.com/quq99" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/qian-qu/" },
     { label: "Hugging Face", href: "https://huggingface.co/QianQu" },
@@ -64,9 +65,13 @@ export const projects = [
 export type Publication = {
   title: string;
   href: string;
-  authors: string; // "Qian Qu" is set in bold where it appears
+  authors: string; // short list (CV); "Qian Qu" is set in a stronger tone where it appears
+  allAuthors: string; // full list, as on arXiv (Research page)
+  summary: string; // one line, from the paper's abstract
   venue: string;
+  date: string;
   firstAuthor?: boolean;
+  more?: { label: string; href: string }[];
 };
 
 export const publications: Publication[] = [
@@ -74,26 +79,61 @@ export const publications: Publication[] = [
     title: "CompoundingKernel: Self-Improving from Zero to First",
     href: "https://arxiv.org/abs/2611.19230",
     authors: "Qian Qu, Hongyang Wang, Wenbo Chen, et al.",
-    venue: "arXiv 2611.19230, 2026",
+    // v2 (submitted 2026-11-20) adds Yutong Chen, as in the Space citation.
+    allAuthors:
+      "Qian Qu, Hongyang Wang, Wenbo Chen, Yichuan Li, Jingguo Liu, Xian Li, Xuan Wang, Ruochen Wen, Leo Fan, Yiming Yan, Yutong Chen, Zheshen Wang, Benoit Dumoulin",
+    summary:
+      "A self-improving agent system that writes GPU kernels by search, starting from each problem's PyTorch definition; its kernels rank first on the public L1, L2 and Quantization boards of NVIDIA SOL-ExecBench (as of November 11, 2026).",
+    venue: "arXiv 2611.19230",
+    date: "Nov 2026",
     firstAuthor: true,
+    more: [{ label: "Browse the problems", href: "https://huggingface.co/spaces/QianQu/CompoundingKernel-Explorer" }],
   },
   {
     title: "Plumbline: When the Loss Lies, Validating LLM Training Correctly",
     href: "https://arxiv.org/abs/2611.13393",
     authors: "Ruochen Wen, Hongyang Wang, Siwei Li, …, Qian Qu, et al.",
-    venue: "arXiv 2611.13393, 2026",
+    allAuthors:
+      "Ruochen Wen, Hongyang Wang, Siwei Li, Wenbo Chen, Xian Li, Jingguo Liu, Leo Fan, Yiming Yan, Qian Qu, Zheshen Wang, Benoit Dumoulin",
+    summary:
+      "A correctness validation system for LLM training that checks each stage of the training lifecycle and traces failures to their root causes.",
+    venue: "arXiv 2611.13393",
+    date: "Nov 2026",
   },
   {
     title: "Sandman: A Sandbox Service for Production Agentic Reinforcement Learning",
     href: "https://arxiv.org/abs/2610.39711",
     authors: "Yiming Yan, Hongyang Wang, Wenbo Chen, …, Qian Qu, et al.",
-    venue: "arXiv 2610.39711, 2026",
+    allAuthors:
+      "Yiming Yan, Hongyang Wang, Wenbo Chen, Xuan Wang, Yichuan Li, Jingguo Liu, Xian Li, Leo Fan, Chen Qi, Siwei Li, Qianli Wu, Ruochen Wen, Qian Qu, Zheshen Wang, Benoit Dumoulin",
+    summary:
+      "A sandbox service for the bursts of environment requests that large reinforcement learning training jobs make: creation pacing, readiness checks and cleanup of abandoned requests.",
+    venue: "arXiv 2610.39711",
+    date: "Oct 2026",
   },
   {
     title: "ATTUNE: Agentic Throughput Tuning for LLM Training",
     href: "https://arxiv.org/abs/2610.17528",
     authors: "Leo Fan, Hongyang Wang, Wenbo Chen, …, Qian Qu, et al.",
-    venue: "arXiv 2610.17528, 2026",
+    allAuthors:
+      "Leo Fan, Hongyang Wang, Wenbo Chen, Jingguo Liu, Xian Li, Xuan Wang, Ruochen Wen, Yiming Yan, Hao Wu, Yichuan Li, Qian Qu, Zheshen Wang, Benoit Dumoulin",
+    summary:
+      "A coding agent, informed by past tuning runs, that finds bottlenecks in LLM training setups and tunes them one at a time, while an outside check blocks changes that would alter what the model learns.",
+    venue: "arXiv 2610.17528",
+    date: "Oct 2026",
+  },
+];
+
+// Open-source work listed on the Research page.
+export const openSource = [
+  {
+    title: "TorchNeuron (torch-neuronx)",
+    href: "https://github.com/aws-neuron/torch-neuronx",
+    summary:
+      "Native PyTorch backend for AWS Trainium, open-sourced under Apache 2.0 in October 2026. I contributed code for PyTorch ATen operators, the upstream PyTorch tests, accuracy and Hugging Face model onboarding.",
+    role: "Core team",
+    date: "Oct 2026",
+    more: [{ label: "Read the announcement", href: "https://pytorch.org/blog/introducing-torchneuron-native-pytorch-backend-for-aws-trainium/" }],
   },
 ];
 

@@ -1,16 +1,9 @@
 ---
-import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Film from "../components/Film.astro";
 import Logo from "../components/Logo.astro";
-import { person, featured, projects, publications, experience, education } from "../data/profile";
+import { person, featured, projects, publications, experience } from "../data/profile";
 
-const posts = (await getCollection("blog")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const monthYear = (d: Date) => d.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
-
-// Set my name in the author line in a stronger tone, so it is easy to find.
-const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
-const schoolLogo = (s: string) => (s.startsWith("Nanjing") ? "nju" : "uva");
 const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "annapurna" : "amazon");
 ---
 
@@ -91,13 +84,13 @@ const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "annapurna" : "amaz
     </ol>
   </section>
 
-  <!-- Papers -->
-  <section id="papers" class="shell mt-24 scroll-mt-8 sm:mt-32" aria-labelledby="papers-title">
+  <!-- Research (summary; the full list is on /research/) -->
+  <section id="research" class="shell mt-24 mb-28 scroll-mt-8 sm:mt-32 sm:mb-36" aria-labelledby="research-title">
     <div class="row">
-      <h2 id="papers-title" class="section-title">Papers</h2>
-      <div aria-hidden="true"></div>
+      <h2 id="research-title" class="section-title">Research</h2>
+      <p class="text-ink-2">Papers with my colleagues at Amazon. <a href="/research/">See all research</a></p>
     </div>
-    <ul class="mt-4 space-y-7">
+    <ul class="mt-8 space-y-6">
       {
         publications.map((p) => (
           <li class="row">
@@ -106,10 +99,7 @@ const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "annapurna" : "amaz
               <h3 class="font-semibold">
                 <a href={p.href} class="text-ink no-underline hover:text-seal">{p.title}</a>
               </h3>
-              <p class="mt-1 text-sm text-muted">
-                {authorParts(p.authors).map((part) => (part === "Qian Qu" ? <span class="text-ink">{part}</span> : part))}
-              </p>
-              <p class="text-sm text-muted num">{p.venue}</p>
+              <p class="text-sm text-muted num">{p.venue}, {p.date}</p>
             </div>
           </li>
         ))
@@ -117,42 +107,11 @@ const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "annapurna" : "amaz
     </ul>
   </section>
 
-  <!-- Education -->
-  <section id="education" class="shell mt-24 scroll-mt-8 sm:mt-32" aria-labelledby="education-title">
-    <div class="row">
-      <h2 id="education-title" class="section-title">Education</h2>
-      <div aria-hidden="true"></div>
-    </div>
-    <ul class="mt-4 space-y-4">
-      {
-        education.map((e) => (
-          <li class="row">
-            <p class="label num">{e.years}</p>
-            <p>
-              <span class="flex items-center gap-2.5 font-semibold"><Logo name={schoolLogo(e.school)} size={e.school.startsWith("Nanjing") ? "1.25rem" : "1.4375rem"} class="text-ink-2" />{e.school}</span>
-              <span class="block text-ink-2">{e.degree}</span>
-            </p>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-
-  <!-- Writing -->
-  <section id="writing" class="shell mt-24 mb-28 scroll-mt-8 sm:mt-32 sm:mb-36" aria-labelledby="writing-title">
-    <div class="row">
-      <h2 id="writing-title" class="section-title">Writing</h2>
-      <p class="text-ink-2">Notes from 2019 on Vim, C++ and putting models on phones, kept as an archive.</p>
-    </div>
-    <ul class="mt-6 space-y-3">
-      {
-        posts.map((post) => (
-          <li class="row">
-            <p class="label num">{monthYear(post.data.date)}</p>
-            <a href={`/blog/${post.id}/`} class="text-ink no-underline hover:text-seal">{post.data.title}</a>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+  <!-- Old links to /#papers and /#writing go to the pages that now hold them. -->
+  <script is:inline>
+    (function () {
+      var to = { "#papers": "/research/", "#education": "/cv/", "#writing": "/blog/" }[location.hash];
+      if (to) location.replace(to);
+    })();
+  </script>
 </Base>

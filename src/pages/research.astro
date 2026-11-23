@@ -1,0 +1,83 @@
+---
+import Base from "../layouts/Base.astro";
+import { publications, openSource } from "../data/profile";
+
+const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
+---
+
+<Base title="Research" description="Papers and open-source work by Qian Qu: LLM agents for GPU kernels, LLM training systems, and PyTorch on AWS Trainium.">
+  <section class="shell pt-16 sm:pt-24 md:pt-32" aria-labelledby="title">
+    <div class="row">
+      <div aria-hidden="true"></div>
+      <div>
+        <h1 id="title" class="text-[2.25rem] leading-[1.08] font-semibold tracking-[-0.03em] sm:text-[3rem]">Research</h1>
+        <p class="mt-4 max-w-[34rem] text-lg text-ink-2 tracking-[-0.016em]">
+          LLM agents that write GPU kernels, and the systems that train and check large language models.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Papers -->
+  <section class="shell mt-24 sm:mt-28" aria-labelledby="papers">
+    <div class="row">
+      <h2 id="papers" class="section-title">Papers</h2>
+      <div aria-hidden="true"></div>
+    </div>
+    <ol class="mt-6 space-y-12">
+      {
+        publications.map((p) => (
+          <li class="row">
+            <div class="label num">
+              <p>{p.date}</p>
+              <p>{p.firstAuthor ? "First author" : "Co-author"}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold tracking-[-0.016em]">
+                <a href={p.href} class="text-ink no-underline hover:text-seal">{p.title}</a>
+              </h3>
+              <p class="mt-2 text-ink-2">{p.summary}</p>
+              <p class="mt-2 text-sm text-muted">
+                {authorParts(p.allAuthors).map((part) => (part === "Qian Qu" ? <span class="text-ink">{part}</span> : part))}
+              </p>
+              <ul class="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm">
+                <li><a href={p.href}>{p.venue}</a></li>
+                {p.more?.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+              </ul>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <!-- Open source -->
+  <section class="shell mt-24 mb-28 sm:mt-28 sm:mb-36" aria-labelledby="oss">
+    <div class="row">
+      <h2 id="oss" class="section-title">Open source</h2>
+      <div aria-hidden="true"></div>
+    </div>
+    <ul class="mt-6 space-y-12">
+      {
+        openSource.map((o) => (
+          <li class="row">
+            <div class="label num">
+              <p>{o.date}</p>
+              <p>{o.role}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold tracking-[-0.016em]">
+                <a href={o.href} class="text-ink no-underline hover:text-seal">{o.title}</a>
+              </h3>
+              <p class="mt-2 text-ink-2">{o.summary}</p>
+              <ul class="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm">
+                <li><a href={o.href}>View the code</a></li>
+                {o.more.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+              </ul>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>

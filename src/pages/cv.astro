@@ -77,7 +77,7 @@ const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "annapurna" : "amaz
               <p class="mt-1 text-sm text-muted">
                 {authorParts(p.authors).map((part) => (part === "Qian Qu" ? <span class="text-ink">{part}</span> : part))}
               </p>
-              <p class="text-sm text-muted num">{p.venue}</p>
+              <p class="text-sm text-muted num">{p.venue}, {p.date}</p>
             </div>
           </li>
         ))

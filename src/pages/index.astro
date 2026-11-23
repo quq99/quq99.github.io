@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Film from "../components/Film.astro";
-import { person, featured, publications, experience, education } from "../data/profile";
+import { person, featured, projects, publications, experience, education } from "../data/profile";
 
 const posts = (await getCollection("blog")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const monthYear = (d: Date) => d.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
@@ -44,6 +44,24 @@ const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
         <p class="mt-6 text-xs text-muted">{featured.film.credit}</p>
       </div>
     </div>
+
+    {
+      projects.map((p) => (
+        <div class="row mt-20 sm:mt-24">
+          <p class="label num">{p.years}</p>
+          <div>
+            <h2 class="text-xl font-semibold tracking-[-0.022em]">{p.title}</h2>
+            {p.code && (
+              <pre class="code-card mt-4" aria-label="Example"><code><span>{p.code.line}</span>  <span class="code-note">{p.code.note}</span></code></pre>
+            )}
+            {p.text.map((t, i) => <p class:list={["text-ink-2", i === 0 ? "mt-4" : "mt-4"]}>{t}</p>)}
+            <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+              {p.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+            </ul>
+          </div>
+        </div>
+      ))
+    }
   </section>
 
   <!-- Experience -->
@@ -80,7 +98,7 @@ const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
             <p class="label num">{p.firstAuthor ? "First author" : "Co-author"}</p>
             <div>
               <h3 class="font-semibold">
-                <a href={p.href} class="text-ink hover:text-link">{p.title}</a>
+                <a href={p.href} class="text-ink no-underline hover:text-seal">{p.title}</a>
               </h3>
               <p class="mt-1 text-sm text-muted">
                 {authorParts(p.authors).map((part) => (part === "Qian Qu" ? <span class="text-ink">{part}</span> : part))}
@@ -125,7 +143,7 @@ const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
         posts.map((post) => (
           <li class="row">
             <p class="label num">{monthYear(post.data.date)}</p>
-            <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+            <a href={`/blog/${post.id}/`} class="text-ink no-underline hover:text-seal">{post.data.title}</a>
           </li>
         ))
       }

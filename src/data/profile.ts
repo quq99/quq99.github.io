@@ -34,6 +34,33 @@ export const featured = {
   ],
 };
 
+// More work, after the featured project. Public facts only (the linked pages say the same).
+export const projects = [
+  {
+    title: "TorchNeuron",
+    years: "2025 – 2026",
+    code: { line: 'model = MyModel().to("neuron")', note: "# the only change" },
+    text: [
+      "Native PyTorch on AWS Trainium: model code, libraries and tools run on Trainium as a standard PyTorch device, in eager mode or with torch.compile. Open-sourced as torch-neuronx under Apache 2.0 at PyTorch Conference North America on October 20, 2026.",
+      "I was on the core team that enabled it, working on LLM training and evaluation, distributed training, and PyTorch ATen operators with torch-mlir.",
+    ],
+    links: [
+      { label: "Read the announcement", href: "https://pytorch.org/blog/introducing-torchneuron-native-pytorch-backend-for-aws-trainium/" },
+      { label: "View the code", href: "https://github.com/aws-neuron/torch-neuronx" },
+    ],
+  },
+  {
+    title: "Amazon Rufus",
+    years: "2023 – 2025",
+    code: null,
+    text: [
+      "Amazon's generative AI shopping assistant in the Amazon app and on the web, trained on the product catalog, customer reviews and community Q&A. It was renamed Alexa for Shopping in May 2026.",
+      "As an early member of the foundation model and data team, I built the pre-training data pipeline for trillions of tokens, the customer data system for release gating, evaluation and RLHF, and the LLM playground used for demos to the Amazon CEO.",
+    ],
+    links: [{ label: "Read the launch post", href: "https://www.aboutamazon.com/news/retail/amazon-rufus" }],
+  },
+];
+
 export type Publication = {
   title: string;
   href: string;

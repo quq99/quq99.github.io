@@ -69,7 +69,7 @@ const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
             <p class="label num">{p.firstAuthor ? "First author" : "Co-author"}</p>
             <div>
               <h3 class="font-semibold">
-                <a href={p.href} class="text-ink hover:text-link">{p.title}</a>
+                <a href={p.href} class="text-ink no-underline hover:text-seal">{p.title}</a>
               </h3>
               <p class="mt-1 text-sm text-muted">
                 {authorParts(p.authors).map((part) => (part === "Qian Qu" ? <span class="text-ink">{part}</span> : part))}

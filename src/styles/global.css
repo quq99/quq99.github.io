@@ -4,34 +4,36 @@
 /*
   Design tokens.
   One family: the system face on Apple devices (SF Pro), Inter elsewhere.
-  Color: white paper, graphite ink, one blue for things you can click.
+  Color: paper (the film's own background, #FAF9F5) and navy ink, like a printed page.
+  The seal's vermilion is the only warm accent; links are underlined ink and turn vermilion on hover.
+  Contrast on paper (WCAG): ink 13.5, ink-2 8.4, muted 4.7, seal 5.1; dark: 15.5, 11.4, 6.1, 5.4.
 */
 :root {
-  --paper: #ffffff;
-  --ink: #1d1d1f;
-  --ink-2: #424245;
-  --muted: #6e6e73;
-  --hair: #e5e5ea;
-  --surface: #f5f5f7;
-  --link: #0a5bd6;
-  --link-hover: #0847a8;
-  --focus: #0a5bd6;
+  --paper: #faf9f5;
+  --ink: #1b2b45;
+  --ink-2: #3d4b63;
+  --muted: #677184;
+  --hair: #e3e0d6;
+  --surface: #f1efe8;
+  --link: #1b2b45;
+  --link-hover: #c82e2a;
+  --focus: #1b2b45;
   --seal: #c82e2a;
   color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #000000;
-    --ink: #f5f5f7;
-    --ink-2: #d2d2d7;
-    --muted: #98989d;
-    --hair: #2c2c2e;
-    --surface: #161617;
-    --link: #4f9cff;
-    --link-hover: #8ab9ff;
-    --focus: #4f9cff;
-    --seal: #ef4b43;
+    --paper: #0e1522;
+    --ink: #eeece6;
+    --ink-2: #c7ccd6;
+    --muted: #8c95a6;
+    --hair: #253043;
+    --surface: #162033;
+    --link: #eeece6;
+    --link-hover: #f0574d;
+    --focus: #eeece6;
+    --seal: #f0574d;
   }
 }
 
@@ -46,6 +48,7 @@
   --color-hair: var(--hair);
   --color-surface: var(--surface);
   --color-link: var(--link);
+  --color-seal: var(--seal);
 
   /* Type scale (px at 16px root): 13 · 15 · 17 · 21 · 28 · 48–64 */
   --text-xs: 0.8125rem;
@@ -79,18 +82,20 @@
     font-feature-settings: "kern", "calt";
   }
   ::selection {
-    background: color-mix(in srgb, var(--link) 22%, transparent);
+    background: color-mix(in srgb, var(--seal) 18%, transparent);
   }
+  /* Links read like references in print: ink with a quiet underline, vermilion on hover. */
   a {
     color: var(--link);
-    text-decoration: none;
-    text-underline-offset: 0.2em;
+    text-decoration-line: underline;
+    text-decoration-color: color-mix(in srgb, var(--link) 32%, transparent);
     text-decoration-thickness: 1px;
-    transition: color 0.15s ease;
+    text-underline-offset: 0.22em;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
   }
   a:hover {
     color: var(--link-hover);
-    text-decoration-line: underline;
+    text-decoration-color: currentColor;
   }
   :focus-visible {
     outline: 2px solid var(--focus);
@@ -149,6 +154,22 @@
     font-weight: 600;
     color: var(--ink);
     letter-spacing: -0.008em;
+  }
+  /* One line of code shown as a work's picture (TorchNeuron's device switch). */
+  .code-card {
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    letter-spacing: 0;
+    padding: 1.125rem 1.375rem;
+    border-radius: 14px;
+    background: var(--surface);
+    color: var(--ink);
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .code-card .code-note {
+    color: var(--muted);
   }
 }
 

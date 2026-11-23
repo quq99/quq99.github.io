@@ -37,8 +37,8 @@ const nav = [
     <link rel="icon" href="/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="alternate" type="application/rss+xml" title={`${person.name}: writing`} href="/rss.xml" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#faf9f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e1522" media="(prefers-color-scheme: dark)" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
@@ -56,7 +56,7 @@ const nav = [
       <nav class="flex items-center justify-between py-5 text-sm" aria-label="Main">
         <a
           href="/"
-          class="flex items-center gap-2.5 font-semibold text-ink hover:text-ink hover:no-underline"
+          class="flex items-center gap-2.5 font-semibold text-ink no-underline hover:text-ink"
           aria-current={path === "/" ? "page" : undefined}
         >
           <span class="seal" aria-hidden="true"></span>
@@ -69,7 +69,7 @@ const nav = [
                 <a
                   href={item.href}
                   class:list={[
-                    "hover:no-underline",
+                    "no-underline",
                     item.href.startsWith("/#") || !path.startsWith(item.href) ? "text-muted hover:text-ink" : "text-ink",
                   ]}
                   aria-current={!item.href.startsWith("/#") && path.startsWith(item.href) ? "page" : undefined}

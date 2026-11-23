@@ -24,7 +24,7 @@ const fmt = (d: Date) => d.toLocaleDateString("en-US", { month: "long", day: "nu
             <p class="label num">{fmt(post.data.date)}</p>
             <div>
               <h2 class="font-semibold">
-                <a href={`/blog/${post.id}/`} class="text-ink hover:text-link">{post.data.title}</a>
+                <a href={`/blog/${post.id}/`} class="text-ink no-underline hover:text-seal">{post.data.title}</a>
               </h2>
               <p class="mt-1 text-ink-2">{post.data.summary}</p>
             </div>

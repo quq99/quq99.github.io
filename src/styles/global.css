@@ -16,6 +16,7 @@
   --link: #0a5bd6;
   --link-hover: #0847a8;
   --focus: #0a5bd6;
+  --seal: #c82e2a;
   color-scheme: light dark;
 }
 
@@ -30,6 +31,7 @@
     --link: #4f9cff;
     --link-hover: #8ab9ff;
     --focus: #4f9cff;
+    --seal: #ef4b43;
   }
 }
 
@@ -130,6 +132,15 @@
     line-height: var(--text-base--line-height);
     color: var(--muted);
     letter-spacing: -0.008em;
+  }
+  /* The name seal (屈, small seal script) from the 2019 site, colored by --seal. */
+  .seal {
+    display: block;
+    height: 1.75rem;
+    aspect-ratio: 95 / 150;
+    background-color: var(--seal);
+    -webkit-mask: url("/seal.png") center / contain no-repeat;
+    mask: url("/seal.png") center / contain no-repeat;
   }
   .section-title {
     font-size: var(--text-sm);

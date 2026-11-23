@@ -33,7 +33,8 @@ const nav = [
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="alternate" type="application/rss+xml" title={`${person.name}: writing`} href="/rss.xml" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
@@ -51,10 +52,15 @@ const nav = [
       >Skip to content</a
     >
     <header class="shell">
-      <nav class="flex items-baseline justify-between py-6 text-sm" aria-label="Main">
-        <a href="/" class="font-semibold text-ink hover:text-ink hover:no-underline" aria-current={path === "/" ? "page" : undefined}
-          >{person.name}</a
+      <nav class="flex items-center justify-between py-5 text-sm" aria-label="Main">
+        <a
+          href="/"
+          class="flex items-center gap-2.5 font-semibold text-ink hover:text-ink hover:no-underline"
+          aria-current={path === "/" ? "page" : undefined}
         >
+          <span class="seal" aria-hidden="true"></span>
+          {person.name}
+        </a>
         <ul class="flex gap-6">
           {
             nav.map((item) => (

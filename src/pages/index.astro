@@ -11,7 +11,7 @@ const monthYear = (d: Date) => d.toLocaleDateString("en-US", { month: "short", y
 const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
 ---
 
-<Base>
+<Base notes={[`Film music: ${featured.film.credit.replace(/^Music: /, "")}`]}>
   <!-- Who -->
   <section class="shell pt-16 pb-20 sm:pt-24 md:pt-32 md:pb-28" aria-labelledby="name">
     <div class="row">
@@ -41,7 +41,6 @@ const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
         <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
           {featured.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
         </ul>
-        <p class="mt-6 text-xs text-muted">{featured.film.credit}</p>
       </div>
     </div>
 

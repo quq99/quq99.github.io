@@ -6,12 +6,15 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  /** Small print at the bottom of the page, e.g. media credits. */
+  notes?: string[];
 }
 
 const {
   title,
   description = `${person.name}: ${person.role}. ${person.intro}`,
   image = "/media/compoundingkernel-poster.jpg",
+  notes = [],
 } = Astro.props;
 
 const pageTitle = title ? `${title} – ${person.name}` : person.name;
@@ -90,9 +93,10 @@ const nav = [
     <footer class="shell">
       <div class="row border-t border-hair py-8 text-xs text-muted">
         <p class="num">© 2016–2026 {person.name}</p>
-        <p>
-          <a href={`mailto:${person.email}`}>{person.email}</a>
-        </p>
+        <div>
+          <p><a href={`mailto:${person.email}`}>{person.email}</a></p>
+          {notes.map((n) => <p class="mt-3 max-w-[40rem]">{n}</p>)}
+        </div>
       </div>
     </footer>
   </body>

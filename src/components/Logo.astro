@@ -1,13 +1,14 @@
 ---
 // A one-color logo, drawn in the text color through a mask (files in public/logos/, made from the
-// original marks: UVA Rotunda CC0, Nanjing University emblem, PyTorch from Simple Icons CC0, Amazon icon
-// (public domain) and AWS logo (Apache-2.0) from Wikimedia Commons; AWS stands in for Annapurna Labs).
+// original marks: UVA seal (public domain, Wikimedia Commons), Nanjing University emblem, PyTorch from
+// Simple Icons CC0, Amazon icon (public domain, Wikimedia Commons), and the Annapurna Labs mountain mark
+// from the archived annapurnalabs.com home page (web.archive.org, 2021)).
 interface Props {
-  name: "uva" | "nju" | "pytorch" | "amazon" | "aws";
+  name: "uva" | "nju" | "pytorch" | "amazon" | "annapurna";
   size?: string; // CSS height
   class?: string;
 }
-const ratios = { uva: 187 / 190, nju: 153 / 192, pytorch: 160 / 192, amazon: 183 / 189, aws: 319 / 190 };
+const ratios = { uva: 196 / 192, nju: 153 / 192, pytorch: 160 / 192, amazon: 183 / 189, annapurna: 135 / 70 };
 const { name, size = "1.25rem", class: cls } = Astro.props;
 ---
 

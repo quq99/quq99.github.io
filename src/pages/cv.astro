@@ -5,7 +5,7 @@ import { person, cv, publications } from "../data/profile";
 
 const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
 const schoolLogo = (s: string) => (s.startsWith("Nanjing") ? "nju" : "uva");
-const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "aws" : "amazon");
+const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "annapurna" : "amazon");
 ---
 
 <Base title="CV" description={`CV of ${person.name}, ${person.role}.`}>
@@ -97,7 +97,7 @@ const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "aws" : "amazon");
           <li class="row">
             <p class="label num">{e.years}</p>
             <div>
-              <h3 class="flex items-center gap-2.5 font-semibold"><Logo name={schoolLogo(e.school)} size="1.25rem" class="text-ink-2" />{e.school}</h3>
+              <h3 class="flex items-center gap-2.5 font-semibold"><Logo name={schoolLogo(e.school)} size={e.school.startsWith("Nanjing") ? "1.25rem" : "1.4375rem"} class="text-ink-2" />{e.school}</h3>
               <p class="text-ink-2">{e.degree}</p>
               <p class="text-sm text-muted num">{e.detail}</p>
             </div>

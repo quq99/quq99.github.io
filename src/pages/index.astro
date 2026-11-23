@@ -11,7 +11,7 @@ const monthYear = (d: Date) => d.toLocaleDateString("en-US", { month: "short", y
 // Set my name in the author line in a stronger tone, so it is easy to find.
 const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
 const schoolLogo = (s: string) => (s.startsWith("Nanjing") ? "nju" : "uva");
-const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "aws" : "amazon");
+const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "annapurna" : "amazon");
 ---
 
 <Base notes={[`Film music: ${featured.film.credit.replace(/^Music: /, "")}`]}>
@@ -129,7 +129,7 @@ const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "aws" : "amazon");
           <li class="row">
             <p class="label num">{e.years}</p>
             <p>
-              <span class="flex items-center gap-2.5 font-semibold"><Logo name={schoolLogo(e.school)} size="1.25rem" class="text-ink-2" />{e.school}</span>
+              <span class="flex items-center gap-2.5 font-semibold"><Logo name={schoolLogo(e.school)} size={e.school.startsWith("Nanjing") ? "1.25rem" : "1.4375rem"} class="text-ink-2" />{e.school}</span>
               <span class="block text-ink-2">{e.degree}</span>
             </p>
           </li>

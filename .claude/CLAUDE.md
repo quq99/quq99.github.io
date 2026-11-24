@@ -18,8 +18,8 @@ still needs the user.
 
 ## Design rules (user-approved, 2026-11)
 
-- 简洁而不简单: quiet, refined, Apple-like. One color family (navy ink in three shades on paper
-  `#FAF9F5`) plus one accent, the seal vermilion, used only for the seal and hover. Color may be
+- 简洁而不简单: quiet, refined, Apple-like. One color family (the film's midnight-blue inks
+  `#1A2B4C` / `#2E4268` / `#5A6A85` on paper `#FAF9F5`, as in `KernelPaper/video/SPEC.md`) plus one accent, the seal vermilion, used only for the seal and hover. Color may be
   added only where it carries information (e.g. inside a chart).
 - Hierarchy by weight, shade, italics and space: `**…**` for key results, `_…_` for qualifiers.
 - Logos are one-color masks in the text color (two-tone only for Hugging Face: white face).

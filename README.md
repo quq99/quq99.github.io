@@ -27,7 +27,8 @@ All home, Research and CV text lives in **`src/data/profile.ts`**.
 
 ## Design rules
 
-Paper `#FAF9F5` (the film's background), navy ink `#1B2B45` / `#3D4B63` / `#677184`, one accent:
+Paper `#FAF9F5` (the film's background), the film's midnight-blue inks `#1A2B4C` / `#2E4268` /
+`#5A6A85` (from `KernelPaper/video/SPEC.md`), one accent:
 the seal's vermilion `#C82E2A` (seal and hover only). One typeface (SF Pro on Apple, Inter
 elsewhere). Colors, type scale and grid are in `src/styles/global.css`.
 

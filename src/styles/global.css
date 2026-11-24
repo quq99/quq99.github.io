@@ -4,20 +4,21 @@
 /*
   Design tokens.
   One family: the system face on Apple devices (SF Pro), Inter elsewhere.
-  Color: paper (the film's own background, #FAF9F5) and navy ink, like a printed page.
+  Color: paper (the film's own background, #FAF9F5) and the film's midnight-blue inks
+  (KernelPaper/video/SPEC.md: #1A2B4C, #2E4268, #5A6A85), like a printed page.
   The seal's vermilion is the only warm accent; links are underlined ink and turn vermilion on hover.
-  Contrast on paper (WCAG): ink 13.5, ink-2 8.4, muted 4.7, seal 5.1; dark: 15.5, 11.4, 6.1, 5.4.
+  Contrast on paper (WCAG): ink 13.3, ink-2 9.5, muted 5.2, seal 5.1; dark: 15.5, 11.4, 6.1, 5.4.
 */
 :root {
   --paper: #faf9f5;
-  --ink: #1b2b45;
-  --ink-2: #3d4b63;
-  --muted: #677184;
+  --ink: #1a2b4c;
+  --ink-2: #2e4268;
+  --muted: #5a6a85;
   --hair: #e3e0d6;
   --surface: #f1efe8;
-  --link: #1b2b45;
+  --link: #1a2b4c;
   --link-hover: #c82e2a;
-  --focus: #1b2b45;
+  --focus: #1a2b4c;
   --seal: #c82e2a;
   color-scheme: light dark;
 }

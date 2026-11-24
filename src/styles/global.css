@@ -173,6 +173,20 @@
   }
 }
 
+/* Emphasis (components/Rich.astro): key results in ink and semibold; qualifiers in italic.
+   In a heading, an aside drops to regular weight and gray (e.g. "now Alexa for Shopping"). */
+.key {
+  font-weight: 600;
+  color: var(--ink);
+}
+.aside {
+  font-style: italic;
+}
+h2 .aside, h3 .aside {
+  font-weight: 400;
+  color: var(--muted);
+}
+
 /* One-color logos (components/Logo.astro): the mark takes the color of the text around it. */
 .logo {
   display: inline-block;

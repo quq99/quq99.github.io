@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import IconLink from "../components/IconLink.astro";
+import Rich from "../components/Rich.astro";
 import { publications, openSource } from "../data/profile";
 
 const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
@@ -41,7 +42,7 @@ const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
               <h3 class="text-lg font-semibold tracking-[-0.016em]">
                 <a href={p.href} class="text-ink no-underline hover:text-seal">{p.title}</a>
               </h3>
-              <p class="mt-2 text-ink-2">{p.summary}</p>
+              <p class="mt-2 text-ink-2"><Rich text={p.summary} /></p>
               <p class="mt-2 text-sm text-muted">
                 {authorParts(p.allAuthors).map((part) => (part === "Qian Qu" ? <span class="text-ink">{part}</span> : part))}
               </p>
@@ -74,7 +75,7 @@ const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
               <h3 class="text-lg font-semibold tracking-[-0.016em]">
                 <a href={o.href} class="text-ink no-underline hover:text-seal">{o.title}</a>
               </h3>
-              <p class="mt-2 text-ink-2">{o.summary}</p>
+              <p class="mt-2 text-ink-2"><Rich text={o.summary} /></p>
               <ul class="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm">
                 <li><IconLink href={o.href} label={o.label} /></li>
                 {o.more.map((l) => <li><IconLink href={l.href} label={l.label} /></li>)}

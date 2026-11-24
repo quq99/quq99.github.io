@@ -1,0 +1,21 @@
+---
+// Light emphasis inside data text: **key result** -> bold ink; _qualifier_ -> italic.
+// Text only: no HTML is ever passed through.
+interface Props {
+  text: string;
+}
+const { text } = Astro.props;
+const parts = text.split(/(\*\*[^*]+\*\*|_[^_]+_)/g).filter((p) => p !== "");
+---
+
+{
+  parts.map((p) =>
+    p.startsWith("**") && p.endsWith("**") ? (
+      <strong class="key">{p.slice(2, -2)}</strong>
+    ) : p.length > 2 && p.startsWith("_") && p.endsWith("_") ? (
+      <em class="aside">{p.slice(1, -1)}</em>
+    ) : (
+      p
+    ),
+  )
+}

@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import Film from "../components/Film.astro";
 import Logo from "../components/Logo.astro";
 import IconLink from "../components/IconLink.astro";
+import Rich from "../components/Rich.astro";
 import { person, featured, projects, publications, experience } from "../data/profile";
 
 const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "annapurna" : "amazon");
@@ -34,7 +35,7 @@ const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "annapurna" : "amaz
       <p class="label num">{featured.year}</p>
       <div>
         <h2 id="featured" class="text-xl font-semibold tracking-[-0.022em]">{featured.title}</h2>
-        {featured.text.map((t, i) => <p class:list={["text-ink-2", i === 0 ? "mt-3" : "mt-4"]}>{t}</p>)}
+        {featured.text.map((t, i) => <p class:list={["text-ink-2", i === 0 ? "mt-3" : "mt-4"]}><Rich text={t} /></p>)}
         <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
           {featured.links.map((l) => <li><IconLink href={l.href} label={l.label} /></li>)}
         </ul>
@@ -54,7 +55,7 @@ const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "annapurna" : "amaz
             {p.code && (
               <pre class="code-card mt-4" aria-label="Example"><code><span>{p.code.line}</span>  <span class="code-note">{p.code.note}</span></code></pre>
             )}
-            {p.text.map((t, i) => <p class:list={["text-ink-2", i === 0 ? "mt-4" : "mt-4"]}>{t}</p>)}
+            {p.text.map((t) => <p class="mt-4 text-ink-2"><Rich text={t} /></p>)}
             <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
               {p.links.map((l) => <li><IconLink href={l.href} label={l.label} /></li>)}
             </ul>
@@ -76,8 +77,8 @@ const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "annapurna" : "amaz
           <li class="row">
             <p class="label num">{e.years}</p>
             <div>
-              <h3 class="flex items-center gap-2.5 font-semibold"><Logo name={teamLogo(e.team)} size="1.125rem" class="text-ink-2" />{e.team}</h3>
-              <p class="mt-1 text-ink-2">{e.text}</p>
+              <h3 class="flex items-center gap-2.5 font-semibold"><Logo name={teamLogo(e.team)} size="1.125rem" class="text-ink-2" /><span><Rich text={e.team} /></span></h3>
+              <p class="mt-1 text-ink-2"><Rich text={e.text} /></p>
             </div>
           </li>
         ))

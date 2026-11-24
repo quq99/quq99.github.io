@@ -62,6 +62,7 @@ before the 2026 rebuild. Its blog posts moved here unchanged and keep their old 
 
 The MIT license covers the site's code and text. The CompoundingKernel film and poster come from the
 [CompoundingKernel Explorer](https://huggingface.co/spaces/QianQu/CompoundingKernel-Explorer)
-(CC BY-NC 4.0). The film's music is two Pixabay tracks (633374 by the_mountain, 606698 by nastelbom)
+(CC BY-NC 4.0). Logos and icons: see `src/components/Logo.astro` (Font Awesome Free icons are CC BY 4.0,
+https://fontawesome.com/license/free). The film's music is two Pixabay tracks (633374 by the_mountain, 606698 by nastelbom)
 under the Pixabay Content License, and is covered by neither license. Logos belong to their owners
 and are used only to name the organization next to it.

@@ -22,7 +22,7 @@ const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "annapurna" : "amaz
           {person.role} in {person.location}. {person.intro.replace(/^I /, "I\u00a0")}
         </p>
         <ul class="mt-7 flex flex-wrap gap-x-6 gap-y-2" aria-label="Links">
-          {person.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+          {person.links.map((l) => <li><IconLink href={l.href} label={l.label} /></li>)}
         </ul>
       </div>
     </div>

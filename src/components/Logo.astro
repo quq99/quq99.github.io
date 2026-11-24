@@ -3,14 +3,15 @@
 // original marks: UVA seal (public domain, Wikimedia Commons), Nanjing University emblem, PyTorch from
 // Simple Icons CC0, Amazon icon (public domain, Wikimedia Commons), and the Annapurna Labs mountain mark
 // from the archived annapurnalabs.com home page (web.archive.org, 2021); arXiv, GitHub and Hugging Face
-// from Simple Icons CC0, arXiv's hollow stroke filled so it reads at text size).
+// from Simple Icons CC0, arXiv's hollow stroke filled so it reads at text size; Google Scholar from
+// Simple Icons CC0; LinkedIn and the envelope from Font Awesome Free 6, CC BY 4.0).
 // Two-tone marks (Hugging Face) add a fill layer under the lines: white on paper, the page color in dark mode.
 interface Props {
-  name: "uva" | "nju" | "pytorch" | "amazon" | "annapurna" | "arxiv" | "github" | "huggingface";
+  name: "uva" | "nju" | "pytorch" | "amazon" | "annapurna" | "arxiv" | "github" | "huggingface" | "scholar" | "linkedin" | "mail";
   size?: string; // CSS height
   class?: string;
 }
-const ratios = { uva: 196 / 192, nju: 153 / 192, pytorch: 160 / 192, amazon: 183 / 189, annapurna: 135 / 70, arxiv: 146 / 174, github: 192 / 188, huggingface: 192 / 174 };
+const ratios = { uva: 196 / 192, nju: 153 / 192, pytorch: 160 / 192, amazon: 183 / 189, annapurna: 135 / 70, arxiv: 146 / 174, github: 192 / 188, huggingface: 192 / 174, scholar: 1, linkedin: 1, mail: 192 / 144 };
 const twoTone = new Set(["huggingface"]);
 const { name, size = "1.25rem", class: cls } = Astro.props;
 const fill = twoTone.has(name);

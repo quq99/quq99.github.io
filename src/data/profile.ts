@@ -217,7 +217,7 @@ export const cv = {
       years: "Dec 2025 – Sep 2026",
       note: "",
       points: [
-        ["TorchNeuron", "Core team member enabling native PyTorch on AWS Trainium (torch-neuronx), open-sourced under Apache 2.0 at the PyTorch Conference in October 2026. PyTorch code runs on Trainium with a **one-line change**."],
+        ["TorchNeuron", "Core team member enabling native PyTorch on AWS Trainium (torch-neuronx), open-sourced under Apache 2.0 at the PyTorch Conference in October 2026. PyTorch code runs on Trainium with a **one-line change**.", "https://github.com/aws-neuron/torch-neuronx"],
         ["Operators, tests and models", "Contributed code for PyTorch ATen operators (with torch-mlir), the upstream PyTorch tests, accuracy and Hugging Face model onboarding; the team validated the **100,000** most popular models and more than 800 ML architectures. Also worked on LLM training, evaluation and distributed training on Trainium."],
       ],
     },

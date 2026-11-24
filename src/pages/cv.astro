@@ -47,9 +47,14 @@ const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "annapurna" : "amaz
               <h3 class="flex items-center gap-2.5 font-semibold"><Logo name={teamLogo(t.team)} size="1.125rem" class="text-ink-2" /><span><Rich text={t.team} /></span></h3>
               {t.note && <p class="mt-1 text-ink-2"><Rich text={t.note} /></p>}
               <ul class="mt-3 space-y-3">
-                {t.points.map(([lead, text]) => (
+                {t.points.map(([lead, text, code]) => (
                   <li class="text-ink-2">
                     <span class="font-medium text-ink">{lead}.</span> <Rich text={text} />
+                    {code && (
+                      <a href={code} class="code-icon no-underline" aria-label={`${lead} on GitHub`} title="View the code on GitHub">
+                        <Logo name="github" size="0.95em" />
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>

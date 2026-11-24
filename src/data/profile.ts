@@ -131,13 +131,37 @@ export const publications: Publication[] = [
 // Open-source work listed on the Research page.
 export const openSource = [
   {
+    title: "CompoundingKernel Explorer",
+    href: "https://huggingface.co/spaces/QianQu/CompoundingKernel-Explorer",
+    label: "Open the Space",
+    summary:
+      "A Hugging Face Space for CompoundingKernel: the 235 SOL-ExecBench problems it works on, grouped by leaderboard and operation type, with the paper and the demo film.",
+    role: "Author",
+    date: "Nov 2026",
+    more: [{ label: "Read the paper", href: "https://arxiv.org/abs/2611.19230" }],
+  },
+  {
     title: "TorchNeuron (torch-neuronx)",
     href: "https://github.com/aws-neuron/torch-neuronx",
+    label: "View the code",
     summary:
       "Native PyTorch backend for AWS Trainium, open-sourced under Apache 2.0 in October 2026. I contributed code for PyTorch ATen operators, the upstream PyTorch tests, accuracy and Hugging Face model onboarding.",
     role: "Core team",
     date: "Oct 2026",
     more: [{ label: "Read the announcement", href: "https://pytorch.org/blog/introducing-torchneuron-native-pytorch-backend-for-aws-trainium/" }],
+  },
+  {
+    title: "ATTUNE",
+    href: "https://github.com/amazon-science/attune",
+    label: "View the code",
+    summary:
+      "Agentic throughput tuning for LLM training, released with OpenRecipes, a leaderboard of more than 60 verified recipes.",
+    role: "Co-author",
+    date: "Oct 2026",
+    more: [
+      { label: "See OpenRecipes", href: "https://openrecipes.ai" },
+      { label: "Read the paper", href: "https://arxiv.org/abs/2610.17528" },
+    ],
   },
 ];
 

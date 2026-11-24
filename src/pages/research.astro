@@ -71,7 +71,7 @@ const authorParts = (authors: string) => authors.split(/(Qian Qu)/);
               </h3>
               <p class="mt-2 text-ink-2">{o.summary}</p>
               <ul class="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm">
-                <li><a href={o.href}>View the code</a></li>
+                <li><a href={o.href}>{o.label}</a></li>
                 {o.more.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
               </ul>
             </div>

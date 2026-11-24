@@ -90,28 +90,6 @@ export const publications: Publication[] = [
     more: [{ label: "Browse the problems", href: "https://huggingface.co/spaces/QianQu/CompoundingKernel-Explorer" }],
   },
   {
-    title: "Plumbline: When the Loss Lies, Validating LLM Training Correctly",
-    href: "https://arxiv.org/abs/2611.13393",
-    authors: "Ruochen Wen, Hongyang Wang, Siwei Li, …, Qian Qu, et al.",
-    allAuthors:
-      "Ruochen Wen, Hongyang Wang, Siwei Li, Wenbo Chen, Xian Li, Jingguo Liu, Leo Fan, Yiming Yan, Qian Qu, Zheshen Wang, Benoit Dumoulin",
-    summary:
-      "A correctness validation system for LLM training that checks each stage of the training lifecycle and traces failures to their root causes.",
-    venue: "arXiv 2611.13393",
-    date: "Nov 2026",
-  },
-  {
-    title: "Sandman: A Sandbox Service for Production Agentic Reinforcement Learning",
-    href: "https://arxiv.org/abs/2610.39711",
-    authors: "Yiming Yan, Hongyang Wang, Wenbo Chen, …, Qian Qu, et al.",
-    allAuthors:
-      "Yiming Yan, Hongyang Wang, Wenbo Chen, Xuan Wang, Yichuan Li, Jingguo Liu, Xian Li, Leo Fan, Chen Qi, Siwei Li, Qianli Wu, Ruochen Wen, Qian Qu, Zheshen Wang, Benoit Dumoulin",
-    summary:
-      "A sandbox service for the bursts of environment requests that large reinforcement learning training jobs make: creation pacing, readiness checks and cleanup of abandoned requests.",
-    venue: "arXiv 2610.39711",
-    date: "Oct 2026",
-  },
-  {
     title: "ATTUNE: Agentic Throughput Tuning for LLM Training",
     href: "https://arxiv.org/abs/2610.17528",
     authors: "Leo Fan, Hongyang Wang, Wenbo Chen, …, Qian Qu, et al.",
@@ -125,6 +103,28 @@ export const publications: Publication[] = [
       { label: "View the code", href: "https://github.com/amazon-science/attune" },
       { label: "See OpenRecipes", href: "https://openrecipes.ai" },
     ],
+  },
+  {
+    title: "Sandman: A Sandbox Service for Production Agentic Reinforcement Learning",
+    href: "https://arxiv.org/abs/2610.39711",
+    authors: "Yiming Yan, Hongyang Wang, Wenbo Chen, …, Qian Qu, et al.",
+    allAuthors:
+      "Yiming Yan, Hongyang Wang, Wenbo Chen, Xuan Wang, Yichuan Li, Jingguo Liu, Xian Li, Leo Fan, Chen Qi, Siwei Li, Qianli Wu, Ruochen Wen, Qian Qu, Zheshen Wang, Benoit Dumoulin",
+    summary:
+      "A sandbox service for the bursts of environment requests that large reinforcement learning training jobs make: creation pacing, readiness checks and cleanup of abandoned requests.",
+    venue: "arXiv 2610.39711",
+    date: "Oct 2026",
+  },
+  {
+    title: "Plumbline: When the Loss Lies, Validating LLM Training Correctly",
+    href: "https://arxiv.org/abs/2611.13393",
+    authors: "Ruochen Wen, Hongyang Wang, Siwei Li, …, Qian Qu, et al.",
+    allAuthors:
+      "Ruochen Wen, Hongyang Wang, Siwei Li, Wenbo Chen, Xian Li, Jingguo Liu, Leo Fan, Yiming Yan, Qian Qu, Zheshen Wang, Benoit Dumoulin",
+    summary:
+      "A correctness validation system for LLM training that checks each stage of the training lifecycle and traces failures to their root causes.",
+    venue: "arXiv 2611.13393",
+    date: "Nov 2026",
   },
 ];
 

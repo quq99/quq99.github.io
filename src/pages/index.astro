@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Film from "../components/Film.astro";
 import Logo from "../components/Logo.astro";
+import IconLink from "../components/IconLink.astro";
 import { person, featured, projects, publications, experience } from "../data/profile";
 
 const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "annapurna" : "amazon");
@@ -35,7 +36,7 @@ const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "annapurna" : "amaz
         <h2 id="featured" class="text-xl font-semibold tracking-[-0.022em]">{featured.title}</h2>
         {featured.text.map((t, i) => <p class:list={["text-ink-2", i === 0 ? "mt-3" : "mt-4"]}>{t}</p>)}
         <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
-          {featured.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+          {featured.links.map((l) => <li><IconLink href={l.href} label={l.label} /></li>)}
         </ul>
       </div>
     </div>
@@ -55,7 +56,7 @@ const teamLogo = (t: string) => (t.startsWith("Annapurna") ? "annapurna" : "amaz
             )}
             {p.text.map((t, i) => <p class:list={["text-ink-2", i === 0 ? "mt-4" : "mt-4"]}>{t}</p>)}
             <ul class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
-              {p.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+              {p.links.map((l) => <li><IconLink href={l.href} label={l.label} /></li>)}
             </ul>
           </div>
         </div>

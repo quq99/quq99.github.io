@@ -1,0 +1,23 @@
+---
+// A link with a small one-color logo in front when it points to arXiv, Hugging Face or GitHub.
+import Logo from "./Logo.astro";
+
+interface Props {
+  href: string;
+  label: string;
+}
+const { href, label } = Astro.props;
+const host = new URL(href, "https://quq99.github.io").hostname;
+const icon = host.endsWith("arxiv.org")
+  ? "arxiv"
+  : host.endsWith("huggingface.co")
+    ? "huggingface"
+    : host === "github.com"
+      ? "github"
+      : null;
+---
+
+<a href={href} class="inline-flex items-center gap-[0.4em]">
+  {icon && <Logo name={icon} size="0.9em" />}
+  <span>{label}</span>
+</a>

@@ -118,9 +118,13 @@ export const publications: Publication[] = [
     allAuthors:
       "Leo Fan, Hongyang Wang, Wenbo Chen, Jingguo Liu, Xian Li, Xuan Wang, Ruochen Wen, Yiming Yan, Hao Wu, Yichuan Li, Qian Qu, Zheshen Wang, Benoit Dumoulin",
     summary:
-      "A coding agent, informed by past tuning runs, that finds bottlenecks in LLM training setups and tunes them one at a time, while an outside check blocks changes that would alter what the model learns.",
+      "A coding agent, informed by past tuning runs, that finds bottlenecks in LLM training setups and tunes them one at a time, while an outside check blocks changes that would alter what the model learns. Released with OpenRecipes, a leaderboard of more than 60 verified recipes.",
     venue: "arXiv 2610.17528",
     date: "Oct 2026",
+    more: [
+      { label: "View the code", href: "https://github.com/amazon-science/attune" },
+      { label: "See OpenRecipes", href: "https://openrecipes.ai" },
+    ],
   },
 ];
 

@@ -195,6 +195,32 @@ h2 .aside, h3 .aside {
   -webkit-mask: var(--logo) center / contain no-repeat;
   mask: var(--logo) center / contain no-repeat;
 }
+/* Two-tone logos: a fill layer (white on paper, page color in dark mode) under the lines in text color. */
+.logo-2 {
+  display: inline-block;
+  flex: none;
+  position: relative;
+  --logo-fill-color: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  .logo-2 { --logo-fill-color: var(--paper); }
+}
+.logo-2::before,
+.logo-2::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.logo-2::before {
+  background-color: var(--logo-fill-color);
+  -webkit-mask: var(--logo-fill) center / contain no-repeat;
+  mask: var(--logo-fill) center / contain no-repeat;
+}
+.logo-2::after {
+  background-color: currentColor;
+  -webkit-mask: var(--logo) center / contain no-repeat;
+  mask: var(--logo) center / contain no-repeat;
+}
 
 /* Long-form text in posts. */
 @layer components {

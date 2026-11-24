@@ -31,7 +31,7 @@ export const featured = {
   ],
   links: [
     { label: "Read the paper", href: "https://arxiv.org/abs/2611.19230" },
-    { label: "Browse the problems", href: "https://huggingface.co/spaces/QianQu/CompoundingKernel-Explorer" },
+    { label: "Open the Explorer on Hugging Face", href: "https://huggingface.co/spaces/QianQu/CompoundingKernel-Explorer" },
   ],
 };
 
@@ -87,7 +87,7 @@ export const publications: Publication[] = [
     venue: "arXiv 2611.19230",
     date: "Nov 2026",
     firstAuthor: true,
-    more: [{ label: "Browse the problems", href: "https://huggingface.co/spaces/QianQu/CompoundingKernel-Explorer" }],
+    more: [{ label: "Open the Explorer on Hugging Face", href: "https://huggingface.co/spaces/QianQu/CompoundingKernel-Explorer" }],
   },
   {
     title: "ATTUNE: Agentic Throughput Tuning for LLM Training",
@@ -133,7 +133,7 @@ export const openSource = [
   {
     title: "CompoundingKernel Explorer",
     href: "https://huggingface.co/spaces/QianQu/CompoundingKernel-Explorer",
-    label: "Open the Space",
+    label: "Open the Explorer on Hugging Face",
     summary:
       "A Hugging Face Space for CompoundingKernel: the 235 SOL-ExecBench problems it works on, grouped by leaderboard and operation type, with the paper and the demo film.",
     role: "Author",
